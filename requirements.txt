@@ -1,3 +1,6 @@
 requests==2.22.0
 bs4==0.0.1
 schedule==0.6.0
+twilio==6.38.1
+APScheduler==3.6.3
+DateTime==4.3
