@@ -5,11 +5,11 @@ from scheduler import start_sending
 
 app = Flask(__name__)
 
-price = check_price()
-if price>1:
-    price = [str(price)]
-    print('yes')
-    start_sending()
+# price = check_price()
+# if price>1:
+#     price = [str(price)]
+#     print('yes')
+#     start_sending()
 
 @app.route("/")
 def hello():
