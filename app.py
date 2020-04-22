@@ -1,8 +1,15 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from Tracker import check_price
+from scheduler import start_sending
 
 app = Flask(__name__)
+
+price = check_price()
+if price>1:
+    price = [str(price)]
+    print('yes')
+    start_sending()
 
 @app.route("/")
 def hello():
