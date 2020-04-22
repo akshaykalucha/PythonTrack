@@ -30,6 +30,9 @@ def sms_reply():
         GCPrice = check_price()
         New_Price = str(GCPrice)
         resp.message("Prize of graphic card is {}".format(New_Price))
+    elif msg == 'send direct':
+        from scheduler import start_sending
+        start_sending()
     else:
         resp.message("please send the keyword 'prices' to get price of graphics card")
 

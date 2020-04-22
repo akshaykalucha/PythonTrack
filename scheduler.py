@@ -11,7 +11,7 @@ price = check_price()
 def start_sending():
 
     # Schedule job_function to be called every two hours
-    sched.add_job(send_msg, 'interval', seconds=10, args=price)
+    sched.add_job(send_msg, args=price)
 
     sched.start()
 
