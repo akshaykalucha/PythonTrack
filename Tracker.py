@@ -34,6 +34,7 @@ def check_price():
     # if(converted_price > 1000):
     #     send_mail()
 
+    return converted_price
 
 def send_mail():
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -58,10 +59,10 @@ def send_mail():
     server.quit
 
 
-check_price()
+# check_price()
 
-schedule.every(5).seconds.do(check_price)
+# schedule.every(5).seconds.do(check_price)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
