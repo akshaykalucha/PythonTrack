@@ -1,5 +1,5 @@
-username = 'lifeofakshy'
-password = 'akshayrokZ123@'
+username = [YOUR_TWITTER_UNAME_OR_EMAIL]
+password = [YOUR_PASSWORD]
 status = 'Hello World!'
 # driver = webdriver.Chrome(ChromeDriverManager().install())
 # driver.get("https://twitter.com/login")
