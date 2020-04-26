@@ -8,9 +8,9 @@ client = Client(account_sid, auth_token)
 def send_msg(price):
 
     message = client.messages.create( 
-                                from_='whatsapp:+14155238886',  
+                                from_='whatsapp: twilio number',  
                                 body=price,      
-                                to='whatsapp:+919873835100'
+                                to='whatsapp: recievers number'
                             ) 
     
     print(message.sid)
