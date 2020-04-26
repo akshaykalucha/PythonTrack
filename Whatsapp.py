@@ -1,8 +1,8 @@
 from twilio.rest import Client 
 # from Tracker import converted_price
- 
-account_sid = 'AC28aae9205d1514633e8ea129436a9bb6' 
-auth_token = '7cb6c719f1b57f49651250da2fc50954' 
+import os
+account_sid = os.environ['account_sid_key']
+auth_token = os.environ['auth_token_key'] 
 client = Client(account_sid, auth_token) 
 
 def send_msg(price):
