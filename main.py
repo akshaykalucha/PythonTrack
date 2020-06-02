@@ -18,7 +18,7 @@ print(user.screen_name)
 
 #get user and print mutual followers
 '''
-user2 = api.get_user('Chiragbarjatyaa')
+user2 = api.get_user('USERNAME')
 print(user2.screen_name)
 print(user2.followers_count)
 for friend in user2.friends():
@@ -27,7 +27,7 @@ for friend in user2.friends():
 
     #getting page of a person
 '''
-for page in tweepy.Cursor(api.user_timeline, id="Chiragbarjatyaa").pages():
+for page in tweepy.Cursor(api.user_timeline, id="USERNAME").pages():
     # page is a list of statuses
     process_page(page)
     '''
