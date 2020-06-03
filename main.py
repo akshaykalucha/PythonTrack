@@ -1,6 +1,6 @@
 import tweepy
 import time
-from keys import authkey, authPass, Access_token, Access_Token_Secret
+from secrets import authkey, authPass, Access_token, Access_Token_Secret
 
 
 auth = tweepy.OAuthHandler(authkey, authPass)
