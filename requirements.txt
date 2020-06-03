@@ -13,9 +13,12 @@ pytz==2019.3
 PySocks==1.7.1
 MarkupSafe==1.1.1
 PyJWT==1.7.1
+tweepy==3.8.0
 Jinja2==2.10.3
 itsdangerous==1.1.0
 idna==2.8
+json5==0.8.5
+jsonschema==3.2.0
 Click==7.0
 chardet==3.0.4
 certifi==2019.9.11

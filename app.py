@@ -1,6 +1,8 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from Tracker import check_price
+import json
+from MakeTweet import execTweet
 # from scheduler import start_sending
 
 app = Flask(__name__)
@@ -19,12 +21,12 @@ def hello():
 def sms_reply():
 
     resp = MessagingResponse()
-    resp.message("Hi this is your own python bot to check the rate of gaming pc graphics card")
+    resp.message("My whatsapp bot working...")
 
     """Respond to incoming calls with a simple text message."""
     # Fetch the message
     msg = request.form.get('Body')
-    print(msg)
+    # print(msg)
     if msg == "prices":
         # Create reply
         GCPrice = check_price()
@@ -33,8 +35,28 @@ def sms_reply():
     elif msg == 'send direct':
         from scheduler import start_sending
         start_sending()
+    elif msg == "tweet":
+        print(type(msg))
     else:
-        resp.message("please send the keyword 'prices' to get price of graphics card")
+        z = json.loads(msg)
+        print(len(z))
+        body = z["body"]
+        if z["type"]["kind"] == "simple":
+            print("it is a simple tweet")
+            print(f"body is: {body}")
+            try:
+                execTweet(body)
+                resp.message(f"Lmao you made the following tweet: {body}")
+            except:
+                resp.message("Lmao there was a error please try again")
+        elif z["type"]["kind"] == "reply":
+            print("it is a reply tweet")
+            try:
+                replyId = z["type"]["replyID"]
+            except:
+                print("No tweet id given")
+                return
+            print(f"replying to {replyId}")
 
     return str(resp)
 
