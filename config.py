@@ -1,7 +1,7 @@
 import tweepy
 import time
 import json
-import sys, os
+import os
 import logging
 
 
