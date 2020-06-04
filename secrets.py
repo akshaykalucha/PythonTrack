@@ -1,9 +1,5 @@
 import os
 
-
-
-username = os.environ['TWITTER_UNAME']
-password = os.environ['TWITTER_PASS']
 status = 'Hello World!'
 # driver = webdriver.Chrome(ChromeDriverManager().install())
 # driver.get("https://twitter.com/login")
