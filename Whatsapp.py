@@ -14,3 +14,15 @@ def send_msg(price):
                             ) 
     
     print(message.sid)
+
+# def deco(fun):
+#     def foo(num):
+#         return fun(num ** 2)
+#     return foo
+
+# @deco
+# def square(num):
+#     return num**2
+
+# n = square(2)
+# print(n)
