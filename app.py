@@ -45,7 +45,7 @@ def sms_reply():
             print("it is a simple tweet")
             print(f"body is: {body}")
             try:
-                execTweet(body)
+                execTweet(body, "simple")
                 resp.message(f"Lmao you made the following tweet: {body}")
             except:
                 resp.message("Lmao there was a error please try again")
@@ -53,6 +53,8 @@ def sms_reply():
             print("it is a reply tweet")
             try:
                 replyId = z["type"]["replyID"]
+                execTweet(body, "reply", replyId)
+                resp.message(f"Lmao you made the following REPLY: {body} to {replyId}")
             except:
                 print("No tweet id given")
                 return
