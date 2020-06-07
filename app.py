@@ -1,21 +1,35 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from Tracker import check_price
+from flask_restful import Resource, Api
+from timeout import Callback, t
 import json
 from MakeTweet import execTweet
 # from scheduler import start_sending
 
 app = Flask(__name__)
+api = Api(app)
 
-# price = check_price()
-# if price>1:
-#     price = [str(price)]
-#     print('yes')
-#     start_sending()
 
-@app.route("/")
-def hello():
-    return "Hello, World!"
+class HelloWorld(Resource):
+    def get(self):
+        dic = {
+        "Type": "Success",
+        "Message": "Response sbmitted",
+        "Data": None
+        }
+        return dic, 201
+
+api.add_resource(HelloWorld, '/')
+
+# @app.route("/")
+# def hello():
+    # dic = {
+    #     "Type": "Success",
+    #     "Message": "Response sbmitted",
+    #     "Data": None
+    # }
+#     return Response(data=dic, status=status.HTTP_200_OK)
 
 @app.route("/sms", methods=['POST'])
 def sms_reply():
@@ -24,6 +38,8 @@ def sms_reply():
     resp.message("My whatsapp bot working...")
 
     """Respond to incoming calls with a simple text message."""
+
+
     # Fetch the message
     msg = request.form.get('Body')
     # print(msg)
@@ -39,6 +55,7 @@ def sms_reply():
         print(type(msg))
     else:
         z = json.loads(msg)
+        print(type(z), 'main type....')
         print(len(z))
         body = z["body"]
         if z["type"]["kind"] == "simple":
@@ -49,6 +66,8 @@ def sms_reply():
                 resp.message(f"Lmao you made the following tweet: {body}")
             except:
                 resp.message("Lmao there was a error please try again")
+
+
         elif z["type"]["kind"] == "reply":
             print("it is a reply tweet")
             try:
@@ -60,6 +79,12 @@ def sms_reply():
                 return
             print(f"replying to {replyId}")
 
+
+        elif z["type"]["kind"] == "start":
+            t.start()
+            
+        elif z["type"]["kind"] == "stop":
+            t.cancel()
     return str(resp)
 
 if __name__ == "__main__":
