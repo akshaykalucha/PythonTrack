@@ -29,12 +29,12 @@ class perpetualTimer():
 
 def Callback(*args):
     # t = threading.Timer(3, Callback)
-    r = requests.get('http://127.0.0.1:5000/', auth=('user', 'pass'))
+    r = requests.get('http://akshaykaluchascriptapp.herokuapp.com/', auth=('user', 'pass'))
     r.headers['content-type']
     data = r.json()
     type = data['Type']
     print(type)
 
-t = perpetualTimer(2,Callback)
+t = perpetualTimer(10,Callback)
 if __name__ == "__main__":  
     t.start()
