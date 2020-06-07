@@ -82,8 +82,9 @@ def sms_reply():
 
         elif z["type"]["kind"] == "start":
             t.start()
-            
+
         elif z["type"]["kind"] == "stop":
+            print('cancelling the process.....')
             t.cancel()
     return str(resp)
 
