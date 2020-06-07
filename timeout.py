@@ -32,7 +32,11 @@ def Callback(*args):
     type = data['Type']
     print(data)
 
-t = perpetualTimer(10,Callback)
+t = perpetualTimer(3,Callback)
+
+def cancelThread():
+      global t
+      t = None
 
 if __name__ == "__main__":  
     t.cancel()
