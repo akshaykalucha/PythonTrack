@@ -2,7 +2,7 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from Tracker import check_price
 from flask_restful import Resource, Api
-from timeout import Callback, t, cancelThread
+from timeout import startThread, t, cancelThread
 import json
 from MakeTweet import execTweet
 # from scheduler import start_sending
@@ -81,11 +81,10 @@ def sms_reply():
 
 
         elif z["type"]["kind"] == "start":
-            t.start()
+            startThread()
 
         elif z["type"]["kind"] == "stop":
             print('cancelling the process.....')
-            t.cancel()
             print(t)
             cancelThread()
             print(t)
