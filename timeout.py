@@ -36,7 +36,7 @@ t = None
 
 def startThread():
       global t
-      t = perpetualTimer(2,Callback)
+      t = perpetualTimer(20,Callback)
       t.start()
 
 def cancelThread():
