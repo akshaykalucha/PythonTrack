@@ -32,7 +32,7 @@ def Callback(*args):
     type = data['Type']
     print(data)
 
-t = perpetualTimer(3,Callback)
+t = perpetualTimer(20,Callback)
 
 def cancelThread():
       global t
