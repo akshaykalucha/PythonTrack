@@ -4,6 +4,7 @@ from multiprocessing import Process
 import requests
 import threading
 import json
+from secrets import userTweet
 from MakeTweet import trackTweet
 
 class perpetualTimer():
@@ -36,7 +37,7 @@ class perpetualTimer():
 
 
 
-def Callback(*args):
+def Callback():
    # t = threading.Timer(3, Callback)
    r = requests.get('http://akshaykaluchascriptapp.herokuapp.com/', auth=('user', 'pass'))
    r.headers['content-type']
@@ -48,22 +49,19 @@ def Callback(*args):
 
 t = None
 tracker = None
-userTweet = 1270427231131537408
+userTweet = userTweet
 user = "lifeofakshy"
 count = 2
 
 
 def TweetTracker(user, userTweet):
    trackTweet(user, userTweet)
-   print("starting tracktweet...")
-   print(threading.activeCount(),
-    "threads active startTrack")
 
 
 def startTweetTracker():
    global tracker
    tracker = perpetualTimer(5,
-   TweetTracker, args=("lifeofakshy", 1270427231131537408))
+   TweetTracker, args=(user, userTweet))
    tracker.start()
 
 startTweetTracker()
@@ -84,7 +82,7 @@ def startThread():
    Callback, args=None)
    t.start()
 
-startThread()
+# startThread()
    
 def cancelThread():
    global t
@@ -92,5 +90,5 @@ def cancelThread():
    del t
    print(t)
 
-# if __name__ == "__main__":  
-#    t.cancel()
+if __name__ == "__main__":  
+   pass

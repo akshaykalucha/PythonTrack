@@ -2,6 +2,10 @@ import tweepy
 import logging
 from config import main_api
 import json
+from secrets import changeTweetId
+
+
+recentId = None
 
 logging.basicConfig(level=logging.INFO)
 
@@ -12,6 +16,7 @@ class MakeTweet:
         self.api = api
         self.me = api.me()
 
+
     def make_tweet(self, tweetBody):
         logger.info(f"Processing tweet {tweetBody}")
         try:
@@ -19,6 +24,8 @@ class MakeTweet:
             print(f"successfully tweeted following: {tweetBody}")
         except Exception as e:
             logger.error("Error on tweet", exc_info=True)
+
+
 
     def make_reply(self,  tweetBody, replyId):
         logger.info(f"Replying tweet {tweetBody} to {replyId}")
@@ -28,8 +35,14 @@ class MakeTweet:
         except Exception as e:
             logger.error("Error on tweet", exc_info=True)
 
+
+
     def trackUser(self, user_id, since_id):
-        tweets = self.api.user_timeline(id=user_id, since_id=since_id, count=4)
+        global recentId
+        print(since_id, "this is current most recent updated id")
+        tweets = self.api.user_timeline(id=user_id, since_id=since_id, count=5)
+        recentId = tweets[1]._json["id"]
+        changeTweetId(recentId)
         for tweet in tweets:
             tweet_data = tweet._json
             if tweet_data["retweeted"] == True:
@@ -47,7 +60,8 @@ class MakeTweet:
                 and tweet_data['retweeted'] == False:
                 if not tweet.favorited:
                     tweet.favorite()
-                print(tweet_data)
+            # if tweet_data["id"] > since_id:
+            # print(tweet_data['id'], 'this is liked id')
 
     def on_error(self, status):
         logger.error(status)
@@ -75,7 +89,6 @@ def trackTweet(userId, sinceTweet):
     tweet_tracker = MakeTweet(api)
     try:
         tweetByUser = tweet_tracker.trackUser(userId, sinceTweet)
-        print(tweetByUser)
     except:
         return tweet_tracker.on_error()
 
