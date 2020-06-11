@@ -50,9 +50,6 @@ class MakeTweet:
             if tweet_data["retweeted"] == True:
                 pass
                 # print(f"you reetweeted this: {tweet_data['text']}")
-            if tweet_data['retweeted'] == False:
-                pass
-                # print(f"this is ither retweetd or replied {tweet_data['text']}")
             try:
                 isQuoted = tweet_data['quoted_status']
             except:
