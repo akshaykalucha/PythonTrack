@@ -35,8 +35,6 @@ class perpetualTimer():
       self.thread.cancel()
 
 
-
-
 def Callback():
    # t = threading.Timer(3, Callback)
    r = requests.get('http://akshaykaluchascriptapp.herokuapp.com/', auth=('user', 'pass'))

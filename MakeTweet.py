@@ -41,7 +41,7 @@ class MakeTweet:
         global recentId
         print(since_id, "this is Normal id")
         Oldtweets = self.api.user_timeline(id=user_id, since_id=since_id, count=5)
-        recentId = Oldtweets[1]._json["id"]
+        recentId = Oldtweets[0]._json["id"]
         tweets = self.api.user_timeline(id=user_id, since_id=recentId, count=5)
         print(recentId, "this is most recent updated id")
         # changeTweetId(recentId)
