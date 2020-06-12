@@ -56,13 +56,13 @@ def TweetTracker(user, userTweet):
    trackTweet(user, userTweet)
 
 
-def startTweetTracker():
+def startTweetTracker(user, userTweet):
    global tracker
    tracker = perpetualTimer(5,
    TweetTracker, args=(user, userTweet))
    tracker.start()
 
-startTweetTracker()
+startTweetTracker(user=user, userTweet=userTweet)
 
 
 # WAIT_TIME_SECONDS = 5

@@ -89,8 +89,15 @@ def sms_reply():
             cancelThread()
             print(t)
 
-        elif z["type"]["kind"] == "start tracking":
-            print('starting tracking process...')
+        elif z["type"]["kind"] == "track-like":
+            try:
+                userName = z['kind']['userName']
+                userTweet = z['kind']['sinceTweet']
+                startTweetTracker(userName, userTweet)
+                print("liking tweet.......")
+                resp.message(f"tweet liked:")
+            except:
+                resp.message("Sory an error occured please try again with corrected values..")
     return str(resp)
 
 if __name__ == "__main__":

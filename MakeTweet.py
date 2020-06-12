@@ -11,6 +11,11 @@ logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger()
 
+
+
+id_cache = {}
+
+
 class MakeTweet:
     def __init__(self, api):
         self.api = api
@@ -36,14 +41,16 @@ class MakeTweet:
             logger.error("Error on tweet", exc_info=True)
 
 
-
     def trackUser(self, user_id, since_id):
         global recentId
         print(since_id, "this is Normal id")
         Oldtweets = self.api.user_timeline(id=user_id, since_id=since_id, count=5)
         recentId = Oldtweets[0]._json["id"]
-        tweets = self.api.user_timeline(id=user_id, since_id=recentId, count=5)
-        print(recentId, "this is most recent updated id")
+        if "recentID" in id_cache:
+            print('recent id found')
+            since_id = id_cache["recentID"]
+        tweets = self.api.user_timeline(id=user_id, since_id=since_id, count=5)
+        print(since_id, "this is most recent updated id")
         # changeTweetId(recentId)
         for tweet in tweets:
             tweet_data = tweet._json
@@ -59,6 +66,7 @@ class MakeTweet:
                 and tweet_data['retweeted'] == False:
                 if not tweet.favorited:
                     tweet.favorite()
+                    id_cache["recentID"] = recentId
                 print(tweet_data)
             # if tweet_data["id"] > since_id:
             # print(tweet_data['id'], 'this is liked id')
