@@ -2,7 +2,7 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from Tracker import check_price
 from flask_restful import Resource, Api
-from timeout import startThread, t, cancelThread, startTweetTracker
+from timeout import startThread, t, cancelThread, startTweetTracker, stopTweetTracker
 import json
 from MakeTweet import execTweet
 # from scheduler import start_sending
@@ -98,6 +98,10 @@ def sms_reply():
                 resp.message("tweet liked")
             except:
                 resp.message("Sory an error occured please try again with corrected values..")
+        elif z["type"]["kind"] == "stop-track-like":
+            print("cancelling liking process.....")
+            stopTweetTracker()
+            resp.message("stopped liking process")
     return str(resp)
 
 if __name__ == "__main__":

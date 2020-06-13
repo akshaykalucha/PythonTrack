@@ -65,7 +65,13 @@ def startTweetTracker(user, userTweet):
    tracker = perpetualTimer(5,
    TweetTracker, args=(user, userTweet))
    return tracker.start()
-   
+
+
+def stopTweetTracker():
+   global tracker
+   tracker.cancel()
+   del tracker
+   print(tracker)
 
 # startTweetTracker(user=user, userTweet=userTweet)
 
