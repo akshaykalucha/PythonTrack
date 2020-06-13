@@ -81,7 +81,7 @@ def startTweetTracker(user, userTweet):
 
 def startThread():
    global t
-   t = perpetualTimer(5,
+   t = perpetualTimer(300,
    Callback, args=None)
    t.start()
 
