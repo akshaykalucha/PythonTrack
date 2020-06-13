@@ -93,9 +93,9 @@ def sms_reply():
             try:
                 userName = z['type']['userName']
                 userTweet = z['type']['sinceTweet']
-                startTweetTracker(userName, userTweet)
+                tweets = startTweetTracker(userName, userTweet)
                 print("liking tweet.......")
-                resp.message(f"tweet liked:")
+                resp.message("tweet liked")
             except:
                 resp.message("Sory an error occured please try again with corrected values..")
     return str(resp)

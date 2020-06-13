@@ -52,14 +52,20 @@ tracker = None
 
 
 def TweetTracker(user, userTweet):
-   trackTweet(user, userTweet)
+   try:
+      likedTweets = trackTweet(user, userTweet)
+      return likedTweets
+   except:
+      error = "an error occured"
+      return error
 
 
 def startTweetTracker(user, userTweet):
    global tracker
    tracker = perpetualTimer(5,
    TweetTracker, args=(user, userTweet))
-   tracker.start()
+   return tracker.start()
+   
 
 # startTweetTracker(user=user, userTweet=userTweet)
 

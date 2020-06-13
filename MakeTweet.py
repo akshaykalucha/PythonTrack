@@ -51,6 +51,7 @@ class MakeTweet:
         tweets = self.api.user_timeline(id=user_id, since_id=since_id, count=5)
         print(since_id, "this is most recent updated id")
         # changeTweetId(recentId)
+        tweetLiked = []
         for tweet in tweets:
             tweet_data = tweet._json
             if tweet_data["retweeted"] == True:
@@ -66,7 +67,8 @@ class MakeTweet:
                 if not tweet.favorited:
                     tweet.favorite()
                     id_cache["recentID"] = recentId
-                print(tweet_data)
+                    tweetLiked.append(tweet_data['text'])
+        return tweetLiked
             # if tweet_data["id"] > since_id:
             # print(tweet_data['id'], 'this is liked id')
 
@@ -96,6 +98,7 @@ def trackTweet(userId, sinceTweet):
     tweet_tracker = MakeTweet(api)
     try:
         tweetByUser = tweet_tracker.trackUser(userId, sinceTweet)
+        return tweetByUser
     except:
         return tweet_tracker.on_error()
 
