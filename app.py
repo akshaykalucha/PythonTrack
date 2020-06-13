@@ -91,8 +91,8 @@ def sms_reply():
 
         elif z["type"]["kind"] == "track-like":
             try:
-                userName = z['kind']['userName']
-                userTweet = z['kind']['sinceTweet']
+                userName = z['type']['userName']
+                userTweet = z['type']['sinceTweet']
                 startTweetTracker(userName, userTweet)
                 print("liking tweet.......")
                 resp.message(f"tweet liked:")

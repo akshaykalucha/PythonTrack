@@ -62,7 +62,7 @@ def startTweetTracker(user, userTweet):
    TweetTracker, args=(user, userTweet))
    tracker.start()
 
-startTweetTracker(user=user, userTweet=userTweet)
+# startTweetTracker(user=user, userTweet=userTweet)
 
 
 # WAIT_TIME_SECONDS = 5
