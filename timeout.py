@@ -62,7 +62,7 @@ def TweetTracker(user, userTweet):
 
 def startTweetTracker(user, userTweet):
    global tracker
-   tracker = perpetualTimer(5,
+   tracker = perpetualTimer(20,
    TweetTracker, args=(user, userTweet))
    return tracker.start()
 
