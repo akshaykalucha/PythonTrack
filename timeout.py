@@ -4,7 +4,6 @@ from multiprocessing import Process
 import requests
 import threading
 import json
-from secrets import userTweet
 from MakeTweet import trackTweet
 
 class perpetualTimer():
@@ -47,9 +46,9 @@ def Callback():
 
 t = None
 tracker = None
-userTweet = userTweet
-user = "lifeofakshy"
-count = 2
+# userTweet = userTweet
+# user = "lifeofakshy"
+# count = 2
 
 
 def TweetTracker(user, userTweet):
