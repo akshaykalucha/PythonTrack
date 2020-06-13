@@ -2,7 +2,6 @@ import tweepy
 import logging
 from config import main_api
 import json
-from secrets import changeTweetId
 
 
 recentId = None
