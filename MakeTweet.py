@@ -2,16 +2,18 @@ import tweepy
 import logging
 from config import main_api
 import json
+from SaveVid import saveVideo
 
 
 recentId = None
+
+mentionedId = None
 
 logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger()
 
-
-
+mention_chache = {}
 id_cache = {}
 
 
@@ -72,8 +74,45 @@ class MakeTweet:
             # if tweet_data["id"] > since_id:
             # print(tweet_data['id'], 'this is liked id')
 
+
+    def mention_reply(self, since_id=None):
+        global mentionedId
+        if "mentions_id" in mention_chache:
+            since_id = mention_chache["mentions_id"]
+            print(since_id)
+            print("recent Id foud")
+        mentioned_tweets = self.api.mentions_timeline(count=1, since_id=since_id)
+        mentionedId = mentioned_tweets[0]._json['id']
+        print(since_id, "this is gone to api")
+        for mentions in mentioned_tweets:
+            tweetData = mentions._json
+            print(tweetData['user']['screen_name'])
+            myHandle = tweetData['user']['screen_name']
+            if myHandle == "lifeofakshy2" or myHandle=="lifeofakshy":
+                tweetText = tweetData['text'].split(' ')
+                print(tweetText)
+                for text in tweetText:
+                    if text=="sendStatus":
+                        print("yes word exists")
+                        tweet_status_id = tweetData["in_reply_to_status_id"]
+                        print(tweet_status_id)
+                        original_tweet = api.get_status(tweet_status_id)
+                        tweetedBy = original_tweet._json['user']['screen_name']
+                        tweet_url = original_tweet._json['id_str']
+                        constructed_url = f"https://twitter.com/{tweetedBy}/status/{tweet_url}"
+                        print(constructed_url)
+                        #saveVideo(constructed_url)
+                        mention_chache["mentions_id"] = mentionedId
+                        print(mention_chache, "this is recent id")
+            print("sorry this was not save video mention")
+
     def on_error(self, status):
         logger.error(status)
+
+
+api = main_api()
+tweet_maker = MakeTweet(api)
+tweet_maker.mention_reply()
 
 
 def execTweet(keywords, type, *replyId):
@@ -139,8 +178,15 @@ class LikeTweet(tweepy.StreamListener):
 
 
 
+# api = main_api()
+
+# z=api.get_status(1229445162662846465)
+# print(z)
 
 
 
-if __name__ == "__main__":
-    print("this is test tweet from akshay")
+
+
+
+# if __name__ == "__main__":
+#     print("this is test tweet from akshay")

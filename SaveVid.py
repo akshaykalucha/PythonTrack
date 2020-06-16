@@ -34,7 +34,7 @@ class DownloadVid():
             else:
                 sys.exit("Bad request to {}, status code: {}.\nPlease sumbit an issue in the repo including this info.".format(url,request.status_code))
 
-        #geting bearertoken to get video MP4 url and saving it in log
+        #ANonymously geting bearertoken without twitterAPI to get video MP4 url and saving it in log
         token_request = send_request(self,sources["video_url"],"GET",headers)
         bearer_file = re.findall('src="(.*js)',token_request)
         file_content = send_request(self,str(bearer_file[0]),'GET',headers)
@@ -95,4 +95,7 @@ def saveVideo(url, *filename):
     z = DownloadVid(url)
     z.save_video(*filename)
 
-saveVideo("https://twitter.com/ishanali101/status/1229445162662846465", "newnewnew")
+
+# saveVideo("https://twitter.com/nailainayat/status/1272919473792651271")
+
+#https://twitter.com/ishanali101/status/1229445162662846465
