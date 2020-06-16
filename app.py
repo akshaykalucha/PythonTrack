@@ -4,7 +4,7 @@ from Tracker import check_price
 from flask_restful import Resource, Api
 from timeout import startThread, t, cancelThread, startTweetTracker, stopTweetTracker
 import json
-from MakeTweet import execTweet
+from MakeTweet import execTweet, startSavingReplying
 # from scheduler import start_sending
 
 app = Flask(__name__)
@@ -51,6 +51,9 @@ def sms_reply():
     elif msg == 'send direct':
         from scheduler import start_sending
         start_sending()
+    elif msg == 'start twitter reply saving':
+        startSavingReplying()
+        resp.message("Bot to reply your mentions has started you will soon recieve videos and updates")
     elif msg == "tweet":
         print(type(msg))
     else:

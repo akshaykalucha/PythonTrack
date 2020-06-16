@@ -86,33 +86,40 @@ class MakeTweet:
         print(since_id, "this is gone to api")
         for mentions in mentioned_tweets:
             tweetData = mentions._json
-            print(tweetData['user']['screen_name'])
+            # print(tweetData['user']['screen_name'])
             myHandle = tweetData['user']['screen_name']
             if myHandle == "lifeofakshy2" or myHandle=="lifeofakshy":
                 tweetText = tweetData['text'].split(' ')
-                print(tweetText)
+                # print(tweetText)
                 for text in tweetText:
                     if text=="sendStatus":
                         print("yes word exists")
                         tweet_status_id = tweetData["in_reply_to_status_id"]
-                        print(tweet_status_id)
-                        original_tweet = api.get_status(tweet_status_id)
+                        main_tweet_id = tweetData["id"]
+                        print(main_tweet_id)
+                        # print(tweet_status_id)
+                        original_tweet = self.api.get_status(tweet_status_id)
                         tweetedBy = original_tweet._json['user']['screen_name']
                         tweet_url = original_tweet._json['id_str']
+                        # print(tweet_url, "this is tweetId")
                         constructed_url = f"https://twitter.com/{tweetedBy}/status/{tweet_url}"
                         print(constructed_url)
-                        #saveVideo(constructed_url)
+                        saveVideo(constructed_url)
                         mention_chache["mentions_id"] = mentionedId
-                        print(mention_chache, "this is recent id")
+                        # print(mention_chache, "this is recent id")
+                        self.api.update_status(status="StatusSent", in_reply_to_status_id=main_tweet_id)
+                        return
             print("sorry this was not save video mention")
 
     def on_error(self, status):
         logger.error(status)
 
 
-api = main_api()
-tweet_maker = MakeTweet(api)
-tweet_maker.mention_reply()
+
+def startSavingReplying():
+    api = main_api()
+    tweet_maker = MakeTweet(api)
+    tweet_maker.mention_reply()
 
 
 def execTweet(keywords, type, *replyId):
@@ -188,5 +195,5 @@ class LikeTweet(tweepy.StreamListener):
 
 
 
-# if __name__ == "__main__":
-#     print("this is test tweet from akshay")
+if __name__ == "__main__":
+    print("this is test tweet from akshay")
