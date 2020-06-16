@@ -23,3 +23,5 @@ Flask-RESTful==0.3.8
 Click==7.0
 chardet==3.0.4
 certifi==2019.9.11
+requests
+colorama
