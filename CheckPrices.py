@@ -50,6 +50,7 @@ priceList = []
 
 def add_prices(*prices):
     print(sum(prices))
+    return sum(prices)
 
 
 
@@ -86,10 +87,12 @@ def checkPrice(url):
         for i in range(len(priceList)):
             prc.append(priceList[i]["price"])
         tup = tuple(prc)
-        add_prices(*tup)
-        print(priceList)
-    return priceList
+        return returnFunc(), add_prices(*tup)
 
+
+
+def returnFunc():
+    return priceList
 
     # print(priceList)
     # queue.enque(priceList)
@@ -100,7 +103,6 @@ def start(url):
     thread = threading.Thread(target=checkPrice, args=(url,))
     thread.start()
     # thread.join()
-    # print(priceList)
 
     # while True:
     #     flag = queue.isEmpty()
@@ -121,5 +123,10 @@ urlList = ["https://www.amazon.in/Zotac-GeForce-1660-GDDR6-Graphic/dp/B07NMWQXLR
 "https://www.amazon.in/gp/product/B07B4GNMS9/",
 "https://www.amazon.in/gp/product/B07STGGQ18/"]
 
-for url in urlList:
-    start(url)
+
+
+def start_trecking():
+    for url in urlList:
+        start(url)
+
+start_trecking()
