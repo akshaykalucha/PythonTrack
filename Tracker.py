@@ -36,6 +36,48 @@ def check_price():
 
     return converted_price
 
+
+
+###################################
+
+def checkGCprice1660TI():
+    URL = "https://www.amazon.in/Zotac-GeForce-1660-GDDR6-Graphic/dp/B07NMWQXLR/ref=sr_1_1?dchild=1&keywords=1660ti&qid=1592377812&s=computers&sr=1-1"
+
+    page = requests.get(URL, headers=headers)
+
+    soup = BeautifulSoup(page.content, 'html.parser')
+    
+    price = soup.find("span", {"id": "priceblock_ourprice"})
+    div = price.string
+    converted_price = div[1:8]
+    k = converted_price.replace(",", "")
+    converted_price = int(k)
+
+    return converted_price
+
+
+
+
+
+def checkGCprice1660SUPER():
+    URL = "https://www.amazon.in/GeForce-GTX-1660-OC-Gv-N166SOC-6GD/dp/B07ZPM2BVR"
+
+    page = requests.get(URL, headers=headers)
+
+    soup = BeautifulSoup(page.content, 'html.parser')
+    
+    price = soup.find("span", {"id": "priceblock_ourprice"})
+    div = price.string
+    converted_price = div[1:8]
+    k = converted_price.replace(",", "")
+    converted_price = int(k)
+
+    return converted_price 
+
+
+#######################################################
+
+
 def send_mail():
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
