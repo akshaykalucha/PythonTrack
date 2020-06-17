@@ -5,6 +5,7 @@ import requests
 import threading
 import json
 from MakeTweet import trackTweet
+from CheckPrices import start_trecking
 
 class perpetualTimer():
     
@@ -39,7 +40,7 @@ def Callback():
    r = requests.get('http://akshaykaluchascriptapp.herokuapp.com/', auth=('user', 'pass'))
    r.headers['content-type']
    data = r.json()
-   type = data['Type']
+   # type = data['Type']
    print(data)
    print(threading.activeCount(), "threads active after callback")
 
@@ -84,6 +85,25 @@ def stopTweetTracker():
 #     Callback()
 
 
+crawling = None
+
+
+def startPCSearch():
+   print("Amazon crawling starting......")
+   global crawling
+   crawling = perpetualTimer(6, start_trecking, args=None)
+   crawling.start()
+
+
+# startPCSearch()
+
+def cancelPCSearch():
+   global crawling
+   crawling.cancel()
+   del crawling
+
+# time.sleep(10)
+cancelPCSearch()
 
 def startThread():
    global t
@@ -99,5 +119,5 @@ def cancelThread():
    del t
    print(t)
 
-if __name__ == "__main__":  
-   pass
+# if __name__ == "__main__":  
+#    pass

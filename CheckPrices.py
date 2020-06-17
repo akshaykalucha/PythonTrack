@@ -8,7 +8,7 @@ import re
 
 
 
-headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.3987.163 Safari/507.36'}
+headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.3685.163 Safari/507.36'}
 
 
 
@@ -90,6 +90,8 @@ def checkPrice(url):
     # queue.enque(priceList)
 
 
+mainPriceList = []
+
 def returnFunc():
     Normal = []
     superList = []
@@ -126,6 +128,7 @@ def returnFunc():
     }
     # queue.enque(dic)
     # print(dic)
+    mainPriceList.append(dic)
     queue.enque(dic)
     # return dic
 
@@ -164,7 +167,12 @@ def start_trecking():
     for url in urlList:
         start(url)
     time.sleep(5)
-    return queue.deque()
+    dic = {
+        "TotPrice": mainPriceList,
+        "priceList": priceList
+    }
+    print(dic)
+    return dic
 
 
-print(start_trecking())
+# start_trecking()
