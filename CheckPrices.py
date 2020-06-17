@@ -8,7 +8,7 @@ import re
 
 
 
-headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'}
+headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.3987.163 Safari/537.36'}
 
 
 
@@ -91,17 +91,34 @@ def checkPrice(url):
 
 
 def returnFunc():
-    # print(priceList)
+    Normal = []
+    superList = []
+    TiList = []
+
     for price in priceList:
         sentence = price['title']
         price = price["price"]
-        print(sentence)
+        Normal.append(price)
+        superList.append(price)
+        TiList.append(price)
         if re.search(r'\b1660Ti\b', sentence):
-            print("1660 Ti price:", price)            
+            print("1660 Ti price:", price)
+            TiPrice = price
         if re.search(r'\bGeForce GTX 1660 Twin\b', sentence):
             print("Normal 1660:", price)
+            NormalPrice = price
         if re.search(r'\b1660 Super Overclocked\b', sentence):
-            print("1660 Super price:", price)   
+            print("1660 Super price:", price)
+            SuperPrice = price
+    Normal.remove(TiPrice) 
+    Normal.remove(SuperPrice) 
+    superList.remove(NormalPrice) 
+    superList.remove(TiPrice)
+    TiList.remove(NormalPrice)
+    TiList.remove(SuperPrice)
+    print(Normal)
+    print(TiList)
+    print(superList)
     return priceList
 
 
