@@ -4,7 +4,7 @@ import smtplib
 import schedule
 import threading
 import time
-  
+import re
 
 
 
@@ -82,20 +82,28 @@ def checkPrice(url):
         "price": converted_price
     }
     priceList.append(dic)
-    if len(priceList)==5:
-        prc = []
-        for i in range(len(priceList)):
-            prc.append(priceList[i]["price"])
-        tup = tuple(prc)
-        return returnFunc(), add_prices(*tup)
+    if len(priceList)==7:
+        return returnFunc()
 
-
-
-def returnFunc():
-    return priceList
 
     # print(priceList)
     # queue.enque(priceList)
+
+
+def returnFunc():
+    # print(priceList)
+    for price in priceList:
+        sentence = price['title']
+        price = price["price"]
+        print(sentence)
+        if re.search(r'\b1660Ti\b', sentence):
+            print("1660 Ti price:", price)            
+        if re.search(r'\bGeForce GTX 1660 Twin\b', sentence):
+            print("Normal 1660:", price)
+        if re.search(r'\b1660 Super Overclocked\b', sentence):
+            print("1660 Super price:", price)   
+    return priceList
+
 
 
 
@@ -121,7 +129,9 @@ urlList = ["https://www.amazon.in/Zotac-GeForce-1660-GDDR6-Graphic/dp/B07NMWQXLR
 "https://www.amazon.in/Kingston-Internal-2000MB-SA2000M8-500G/dp/B07VXCFNVS/",
 "https://www.amazon.in/gp/product/B07MV9BMNY/",
 "https://www.amazon.in/gp/product/B07B4GNMS9/",
-"https://www.amazon.in/gp/product/B07STGGQ18/"]
+"https://www.amazon.in/gp/product/B07STGGQ18/",
+"https://www.amazon.in/gp/product/B07PPPHQYX/",
+"https://www.amazon.in/gp/product/B081SPGMBD/"]
 
 
 
