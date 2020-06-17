@@ -8,7 +8,7 @@ import re
 
 
 
-headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.3987.163 Safari/537.36'}
+headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.3987.163 Safari/507.36'}
 
 
 
@@ -49,7 +49,7 @@ priceList = []
 
 
 def add_prices(*prices):
-    print(sum(prices))
+    # print(sum(prices))
     return sum(prices)
 
 
@@ -102,13 +102,10 @@ def returnFunc():
         superList.append(price)
         TiList.append(price)
         if re.search(r'\b1660Ti\b', sentence):
-            print("1660 Ti price:", price)
             TiPrice = price
         if re.search(r'\bGeForce GTX 1660 Twin\b', sentence):
-            print("Normal 1660:", price)
             NormalPrice = price
         if re.search(r'\b1660 Super Overclocked\b', sentence):
-            print("1660 Super price:", price)
             SuperPrice = price
     Normal.remove(TiPrice) 
     Normal.remove(SuperPrice) 
@@ -116,10 +113,21 @@ def returnFunc():
     superList.remove(TiPrice)
     TiList.remove(NormalPrice)
     TiList.remove(SuperPrice)
-    print(Normal)
-    print(TiList)
-    print(superList)
-    return priceList
+    normalTup = tuple(Normal)
+    superTup = tuple(superList)
+    TiTup = tuple(TiList)
+    priceNormal = add_prices(*normalTup)
+    priceSuper = add_prices(*superTup)
+    priceTi = add_prices(*TiTup)
+    dic = {
+        "Normal price with 1660 is:": priceNormal,
+        "Super price with 1660 Super is:": priceSuper,
+        "Ti price with 1660Ti is:": priceTi
+    }
+    # queue.enque(dic)
+    # print(dic)
+    queue.enque(dic)
+    # return dic
 
 
 
@@ -155,5 +163,8 @@ urlList = ["https://www.amazon.in/Zotac-GeForce-1660-GDDR6-Graphic/dp/B07NMWQXLR
 def start_trecking():
     for url in urlList:
         start(url)
+    time.sleep(5)
+    return queue.deque()
 
-start_trecking()
+
+print(start_trecking())
