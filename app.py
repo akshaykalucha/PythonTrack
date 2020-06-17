@@ -2,8 +2,9 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from Tracker import check_price
 from flask_restful import Resource, Api
-from timeout import startThread, t, cancelThread, startTweetTracker, stopTweetTracker
+from timeout import startThread, t, cancelThread, startTweetTracker, stopTweetTracker, startPCSearch, cancelPCSearch
 import json
+from CheckPrices import start_trecking
 from MakeTweet import execTweet, startSavingReplying
 # from scheduler import start_sending
 
@@ -51,9 +52,27 @@ def sms_reply():
     elif msg == 'send direct':
         from scheduler import start_sending
         start_sending()
+
+
+    # """ -------------------  AMAZON CRAWLER BOT --------------------------------------  """
+    elif msg == 'send complete price':
+        completeList = start_trecking()
+        dividedPrices = completeList["TotPrice"]
+        resp.message(str(dividedPrices))
+        priceList = completeList["priceList"]
+        for item in priceList:
+            resp.message(item)
+            
+        # resp.message(priceList)
+    
+
+    # """ -------------------  SAVE TWEET VIDEO ---------------------------  """
     elif msg == 'start twitter reply saving':
         startSavingReplying()
         resp.message("Bot to reply your mentions has started you will soon recieve videos and updates")
+
+
+    # """ ---------------------  TWEETS  ----------------------------------------   """
     elif msg == "tweet":
         print(type(msg))
     else:

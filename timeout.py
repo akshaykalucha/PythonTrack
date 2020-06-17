@@ -95,15 +95,11 @@ def startPCSearch():
    crawling.start()
 
 
-# startPCSearch()
-
 def cancelPCSearch():
    global crawling
    crawling.cancel()
    del crawling
 
-# time.sleep(10)
-cancelPCSearch()
 
 def startThread():
    global t
@@ -119,5 +115,5 @@ def cancelThread():
    del t
    print(t)
 
-# if __name__ == "__main__":  
-#    pass
+if __name__ == "__main__":  
+   pass

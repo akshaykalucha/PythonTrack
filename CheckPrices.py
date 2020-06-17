@@ -5,10 +5,12 @@ import schedule
 import threading
 import time
 import re
+import random
 
 
 
-headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.3685.163 Safari/507.36'}
+def generateHeaders():
+    return {"User-Agent": f'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}.163 Safari/507.36'}
 
 
 
@@ -60,7 +62,7 @@ def add_prices(*prices):
 def checkPrice(url):
 
     global priceList
-    page = requests.get(url, headers=headers)
+    page = requests.get(url, headers=generateHeaders())
 
     soup = BeautifulSoup(page.content, 'html.parser')
     price = soup.find("span", {"id": "priceblock_ourprice"})
@@ -171,7 +173,7 @@ def start_trecking():
         "TotPrice": mainPriceList,
         "priceList": priceList
     }
-    print(dic)
+    # print(dic)
     return dic
 
 
