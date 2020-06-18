@@ -87,8 +87,7 @@ class DownloadVid():
             with open(op_dir, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
         print('['+Fore.GREEN+'+'+Style.RESET_ALL+'] '+'File successfully saved as '+fn+' !')
-        message = f"file Successfully saved as {fn}"
-        return message
+        return fn
 
 
 

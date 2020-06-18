@@ -24,3 +24,4 @@ Click==7.0
 chardet==3.0.4
 certifi==2019.9.11
 colorama==0.4.1
+filetype==1.0.7

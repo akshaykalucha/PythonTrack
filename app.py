@@ -4,8 +4,12 @@ from Tracker import check_price
 from flask_restful import Resource, Api
 from timeout import startThread, t, cancelThread, startTweetTracker, stopTweetTracker, startPCSearch, cancelPCSearch
 import json
+import time
+import threading
 from CheckPrices import start_trecking
 from MakeTweet import execTweet, startSavingReplying
+from SendMail import send_video_mail
+
 # from scheduler import start_sending
 
 
@@ -64,7 +68,9 @@ def sms_reply():
     # """ -------------------  SAVE TWEET VIDEO ---------------------------  """
     elif msg == 'start twitter reply saving':
         func = startSavingReplying()
-        resp.message(f"Bot to reply your mentions has started you will soon recieve videos and updates\n{func}")
+        resp.message(f"Bot to reply your mentions has started you will soon recieve videos and updates\nfile Successfully saved and mailed you as {func}")
+        vidMail = threading.Thread(target=send_video_mail, args=(func,))
+        vidMail.start()
 
 
     # """ ---------------------  TWEETS  ----------------------------------------   """
