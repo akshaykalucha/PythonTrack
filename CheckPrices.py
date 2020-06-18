@@ -10,8 +10,9 @@ import random
 
 
 def generateHeaders():
-    return {"User-Agent": f'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}.163 Safari/507.36'}
-
+    header = {"User-Agent": f'Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/597.36 (KHTML, like Gecko) Chrome/90.0.{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}.163 Safari/507.36'}
+    print(header)
+    return header
 
 
 class Queue(object):
