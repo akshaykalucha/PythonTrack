@@ -87,13 +87,17 @@ class DownloadVid():
             with open(op_dir, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
         print('['+Fore.GREEN+'+'+Style.RESET_ALL+'] '+'File successfully saved as '+fn+' !')
+        message = f"file Successfully saved as {fn}"
+        return message
 
 
 
 
 def saveVideo(url, *filename):
     z = DownloadVid(url)
-    z.save_video(*filename)
+    file = z.save_video(*filename)
+    return file
+    
 
 
 # saveVideo("https://twitter.com/nailainayat/status/1272919473792651271")

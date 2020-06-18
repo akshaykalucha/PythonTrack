@@ -104,11 +104,11 @@ class MakeTweet:
                         # print(tweet_url, "this is tweetId")
                         constructed_url = f"https://twitter.com/{tweetedBy}/status/{tweet_url}"
                         print(constructed_url)
-                        saveVideo(constructed_url)
+                        videoSaved = saveVideo(f"{constructed_url}")
                         mention_chache["mentions_id"] = mentionedId
                         # print(mention_chache, "this is recent id")
                         self.api.update_status(status="StatusSent", in_reply_to_status_id=main_tweet_id)
-                        return
+                        return videoSaved
             print("sorry this was not save video mention")
 
     def on_error(self, status):
@@ -119,8 +119,8 @@ class MakeTweet:
 def startSavingReplying():
     api = main_api()
     tweet_maker = MakeTweet(api)
-    tweet_maker.mention_reply()
-
+    videoMessage = tweet_maker.mention_reply()
+    return videoMessage
 
 def execTweet(keywords, type, *replyId):
     api = main_api()

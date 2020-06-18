@@ -8,6 +8,8 @@ from CheckPrices import start_trecking
 from MakeTweet import execTweet, startSavingReplying
 # from scheduler import start_sending
 
+
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -23,14 +25,7 @@ class HelloWorld(Resource):
 
 api.add_resource(HelloWorld, '/')
 
-# @app.route("/")
-# def hello():
-    # dic = {
-    #     "Type": "Success",
-    #     "Message": "Response sbmitted",
-    #     "Data": None
-    # }
-#     return Response(data=dic, status=status.HTTP_200_OK)
+
 
 @app.route("/sms", methods=['POST'])
 def sms_reply():
@@ -68,8 +63,8 @@ def sms_reply():
 
     # """ -------------------  SAVE TWEET VIDEO ---------------------------  """
     elif msg == 'start twitter reply saving':
-        startSavingReplying()
-        resp.message("Bot to reply your mentions has started you will soon recieve videos and updates")
+        func = startSavingReplying()
+        resp.message(f"Bot to reply your mentions has started you will soon recieve videos and updates\n{func}")
 
 
     # """ ---------------------  TWEETS  ----------------------------------------   """
