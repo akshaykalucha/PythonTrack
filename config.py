@@ -3,15 +3,15 @@ import time
 import json
 import os
 import logging
-from secrets import authKey, authPass, Access_Token_Secret, Access_token
+# from secrets import authKey, authPass, Access_Token_Secret, Access_token
 
-authkey = authKey
+# authkey = authKey
 
 
-# authkey = os.environ['authkey']
-# authPass = os.environ['authPass']
-# Access_token = os.environ['Access_token']
-# Access_Token_Secret = os.environ['Access_Token_Secret']
+authkey = os.environ['authkey']
+authPass = os.environ['authPass']
+Access_token = os.environ['Access_token']
+Access_Token_Secret = os.environ['Access_Token_Secret']
 
 
 logger = logging.getLogger()
