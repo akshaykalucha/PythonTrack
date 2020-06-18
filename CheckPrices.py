@@ -67,7 +67,8 @@ def checkPrice(url):
 
     soup = BeautifulSoup(page.content, 'html.parser')
     price = soup.find("span", {"id": "priceblock_ourprice"})
-    div = price.string
+    div = price.text
+    print(price)
     # converted_price = div[1:8]
     k = div.replace(",", "")
     z = k.replace("₹", "")
