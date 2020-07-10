@@ -11,7 +11,7 @@ class DownloadVid():
 
     def __init__(self,video_url):
 
-
+        #Extracting video id on the end of tweet url
         video_id = video_url.split('/')[5].split('?')[0] if 's?=' in video_url else video_url.split('/')[5]
 
         #initiating log
