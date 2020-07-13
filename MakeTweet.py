@@ -75,16 +75,7 @@ class MakeTweet:
             # print(tweet_data['id'], 'this is liked id')
 
 
-    def mention_reply(self, since_id=None):
-        global mentionedId
-        if "mentions_id" in mention_chache:
-            since_id = mention_chache["mentions_id"]
-            print(since_id)
-            print("recent Id foud")
-        mentioned_tweets = self.api.mentions_timeline(count=1, since_id=since_id)
-        mentionedId = mentioned_tweets[0]._json['id']
-        print(since_id, "this is gone to api")
-        for mentions in mentioned_tweets:
+
             tweetData = mentions._json
             # print(tweetData['user']['screen_name'])
             myHandle = tweetData['user']['screen_name']
