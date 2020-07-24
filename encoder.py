@@ -39,17 +39,7 @@ L = 1000000000123
 R = 1000000123456
 if R - L == 1:
     print(R)
-else:
-    globarr = []
-    for i in range(L, R+1):
-        bitarr = []
-        for j in range(L, R+1):
-            if i == j:
-                bitor = i
-                bitarr.append(bitor)
-            else:
-                bitor = i | j
-                bitarr.append(bitor)
+
         globarr.append(max(bitarr))
         # print(bitarr)
         # break
