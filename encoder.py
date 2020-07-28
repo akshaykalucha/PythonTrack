@@ -64,3 +64,80 @@ Z = 1000000007
 g=[1,2,2,3]
 [[g.append(i)for j in range(g[i-1])]for i in range(3,n)]
 print(g)
+
+# lst = [1,2,4,20,3,10,5]
+# subsum = 33
+# def subarrayGivenSum(lst, S):
+#     currsum = lst[0]
+#     start = 0
+#     i = 1
+#     while i <= len(lst):
+#         while currsum > subsum and start < i - 1:
+#             currsum = currsum - lst[start]
+#             start += 1
+#         if currsum == subsum:
+#             return [start, i-1]
+#         if i < len(lst):
+#             currsum += lst[i]
+#         i += 1
+#     return -1
+# z = subarrayGivenSum(lst, subsum)
+# print(z)
+#----------------------------------------------------------------
+
+# All subarrays with sum k, get count
+
+# lst = [3,4,7,2,-3,1,4,2]
+# subsum = 7
+
+# def getallsubsum(lst, S):
+#     currsum = 0
+#     prefixSum = []
+#     count = 0
+#     for i in range(len(lst)):
+#         currsum += lst[i]
+#         if i == 0 :
+#             prefixSum.append(lst[i])
+#         else:
+#             newSum = prefixSum[-1] + lst[i]
+#             prefixSum.append(newSum)
+#         if currsum == S:
+#             count += 1
+#         else:
+#             pre = currsum - S
+#             if pre in prefixSum:
+#                 print(pre)
+#                 count += 1
+#     return count
+    
+# z = getallsubsum(lst, subsum)
+# print(z)
+
+
+# also get all subarrays with given by doing minor modification in above function
+# lst = [3,4,7,2,-3,1,4,2]
+# subsum = 7
+
+# def getallsubsum(lst, S):
+#     currsum = 0
+#     prefixSum = []
+#     indexArr = []
+#     for i in range(len(lst)):
+#         currsum += lst[i]
+#         if i == 0 :
+#             prefixSum.append(lst[i])
+#         else:
+#             newSum = prefixSum[-1] + lst[i]
+#             prefixSum.append(newSum)
+#         if currsum == S:
+#             indexArr.append(lst[0:i+1])
+#         else:
+#             pre = currsum - S
+#             if pre in prefixSum:
+#                 index = prefixSum.index(pre)
+#                 indexArr.append(lst[index+1:i+1])
+#     return indexArr
+
+# #len of z will be total subarrays in given array with sum k   
+# z = getallsubsum(lst, subsum)
+# print(z)
