@@ -57,13 +57,13 @@
 #     print(max(globarr))
 
 
-import math
+# import math
 
-n= int(math.pow(10,9))
-Z = 1000000007
-g=[1,2,2,3]
-[[g.append(i)for j in range(g[i-1])]for i in range(3,n)]
-print(g)
+# n= int(math.pow(10,9))
+# Z = 1000000007
+# g=[1,2,2,3]
+# [[g.append(i)for j in range(g[i-1])]for i in range(3,n)]
+# print(g)
 
 # lst = [1,2,4,20,3,10,5]
 # subsum = 33
@@ -138,6 +138,23 @@ print(g)
 #                 indexArr.append(lst[index+1:i+1])
 #     return indexArr
 
-# #len of z will be total subarrays in given array with sum k   
-# z = getallsubsum(lst, subsum)
-# print(z)
+z = getallsubsum(lst, subsum)
+print(z)
+lst = [1,2,4,20,3,10,5]
+subsum = 33
+def subarrayGivenSum(lst, S):
+    currsum = lst[0]
+    start = 0
+    i = 1
+    while i <= len(lst):
+        while currsum > subsum and start < i - 1:
+            currsum = currsum - lst[start]
+            start += 1
+        if currsum == subsum:
+            return [start, i-1]
+        if i < len(lst):
+            currsum += lst[i]
+        i += 1
+    return -1
+z = subarrayGivenSum(lst, subsum)
+print(z)
