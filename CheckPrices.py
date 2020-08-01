@@ -167,16 +167,16 @@ urlList = ["https://www.amazon.in/Zotac-GeForce-1660-GDDR6-Graphic/dp/B07NMWQXLR
 
 
 
-def start_trecking():
-    for url in urlList:
-        start(url)
-    time.sleep(5)
-    dic = {
-        "TotPrice": mainPriceList,
-        "priceList": priceList
-    }
-    # print(dic)
-    return dic
+# def start_trecking():
+#     for url in urlList:
+#         start(url)
+#     time.sleep(5)
+#     dic = {
+#         "TotPrice": mainPriceList,
+#         "priceList": priceList
+#     }
+#     # print(dic)
+#     return dic
 
 
 # start_trecking()
