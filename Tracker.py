@@ -19,7 +19,7 @@ def check_price():
     price = soup.find("div", {"class": "_1vC4OE _3qQ9m1"})
     title = soup.find("span", {"class": "_35KyD6"})
     div = price.string
-
+    ## Title extraction
     print(title.text)
     print(div)
 
