@@ -22,7 +22,16 @@ class HelloWorld(Resource):
     def get(self):
         dic = {
         "Type": "Success",
-        "Message": "Response sbmitted",
+        "Message": "Response sumitted",
+        "Data": None
+        }
+        return dic, 201
+
+class SendAuth(Resource):
+    def get(self):
+        dic = {
+        "Type": "Success",
+        "Message": "Auth sumitted",
         "Data": None
         }
         return dic, 201
