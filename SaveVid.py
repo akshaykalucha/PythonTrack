@@ -102,3 +102,23 @@ def saveVideo(url, *filename):
 # saveVideo("https://twitter.com/nailainayat/status/1272919473792651271")
 
 #https://twitter.com/ishanali101/status/1229445162662846465
+
+def get_account():   
+    #time_acc = datetime.datetime.now()
+    t = date.today()
+    m_d = date.today()
+    day = c.day_name[m_d.weekday()] #return the day of week
+    t_n = strftime("%H:%M:%S",gmtime())
+    time_now = t.strftime(f"{day} %B %d")
+    print(f"User: {user_acc}")
+    print(f"Last login: ", time_now, t_n)      
+    
+
+def get_platform():
+    print(f"System Name: {system_name}")
+    print(f"Platform: {user_platform}")
+    print(f"Platform Release: {user_platform_rel} \n")
+    print(f'Total Bytes Sent: {get_size(bytes_sent)}')
+    print(f'Total Bytes Recieved: {get_size(bytes_recv)} \n')
+    print(f'Physical Core Count: {physicalcore_count}')
+    print(f'Total Core Count: {totalcore_count}')
