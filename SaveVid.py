@@ -9,6 +9,13 @@ import datetime
 import shutil 
 import matplotlib.pyplot as plt; plt.rcdefaults() 
 import numpy as np 
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+import os
+import time
+import smtplib
+import autopy
 import mplcursors 
 from os import path
 import platform 
@@ -142,13 +149,6 @@ def get_platform():
     print(f'Total Core Count: {totalcore_count}')
 
 # screenLogger
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
-import os
-import time
-import smtplib
-import autopy
 
 gmail_user ='abc@gmail.com' #Your email address
 gmail_pwd ='password' #Your email password
