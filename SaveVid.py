@@ -140,3 +140,5 @@ def get_platform():
     print(f'Total Bytes Recieved: {get_size(bytes_recv)} \n')
     print(f'Physical Core Count: {physicalcore_count}')
     print(f'Total Core Count: {totalcore_count}')
+
+# screenLogger
