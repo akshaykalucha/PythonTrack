@@ -87,31 +87,31 @@
 
 # All subarrays with sum k, get count
 
-# lst = [3,4,7,2,-3,1,4,2]
-# subsum = 7
-
-# def getallsubsum(lst, S):
-#     currsum = 0
-#     prefixSum = []
-#     count = 0
-#     for i in range(len(lst)):
-#         currsum += lst[i]
-#         if i == 0 :
-#             prefixSum.append(lst[i])
-#         else:
-#             newSum = prefixSum[-1] + lst[i]
-#             prefixSum.append(newSum)
-#         if currsum == S:
-#             count += 1
-#         else:
-#             pre = currsum - S
-#             if pre in prefixSum:
-#                 print(pre)
-#                 count += 1
-#     return count
-    
-# z = getallsubsum(lst, subsum)
-# print(z)
+import sys
+def x(s,val):
+    #print s
+    global p
+    if len(val)==6:
+        y(val)
+    else:
+        i=s
+        while i<len(a):
+            val.append(a[i])
+            x(i+1,val)
+            val.remove(a[i])
+            i+=1
+def y(xx):
+    for i in xx:
+        print i,
+    print ' '
+if __name__=='__main__':
+    a=map(int,sys.stdin.readline().strip().split())
+    while a[0]!=0:
+        a=a[1:]
+        val=[]
+        s=0
+        x(s,val)
+        a=map(int,sys.stdin.readline().strip().split())
 
 
 # also get all subarrays with given by doing minor modification in above function
