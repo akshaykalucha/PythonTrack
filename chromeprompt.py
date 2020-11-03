@@ -3,6 +3,24 @@ from random import choice
 from webdriver_manager.chrome import ChromeDriverManager
 import zipfile,os
 from selenium import webdriver
+from time import sleep
+from selenium import webdriver
+import os
+from bs4 import BeautifulSoup
+import requests
+from random import choice
+from webdriver_manager.chrome import ChromeDriverManager
+import praw
+import pprint
+import random
+import requests
+from http_request_randomizer.requests.proxy.requestProxy import RequestProxy
+import json
+from proxydriver import get_chromedriver
+from fake_useragent import UserAgent
+ 
+ua = UserAgent()
+userAgent = ua.random
 
 src = 'https://stackoverflow.com/questions/55582136/how-to-set-proxy-with-authentication-in-selenium-chromedriver-python'
 
