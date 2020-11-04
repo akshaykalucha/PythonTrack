@@ -68,3 +68,7 @@ def get_chromedriver(use_proxy=False, user_agent=None):
             zp.writestr("manifest.json",  manifest_json)
             zp.writestr("background.js", background_js)
         chrome_options.add_extension(pluginfile)
+    if user_agent:
+            chrome_options.add_argument('--user-agent=%s' % user_agent)
+    driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
+    return driver
