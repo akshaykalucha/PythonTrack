@@ -58,3 +58,13 @@ chrome.webRequest.onAuthRequired.addListener(
             ['blocking']
 );
 """ % (PROXY_HOST, PROXY_PORT, PROXY_USER, PROXY_PASS)
+
+def get_chromedriver(use_proxy=False, user_agent=None):
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("detach", True)
+    if use_proxy:
+        pluginfile = 'proxy_auth_plugin.zip'
+        with zipfile.ZipFile(pluginfile, 'w') as zp:
+            zp.writestr("manifest.json",  manifest_json)
+            zp.writestr("background.js", background_js)
+        chrome_options.add_extension(pluginfile)
