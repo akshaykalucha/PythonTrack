@@ -31,7 +31,7 @@ var config = {
         bypassList: ["localhost"]
         }
     };
-"""
+
 chrome.proxy.settings.set({value: config, scope: "regular"}, function() {});
 
 function callbackFn(details) {
@@ -42,6 +42,7 @@ function callbackFn(details) {
         }
     };
 }
+
 chrome.webRequest.onAuthRequired.addListener(
             callbackFn,
             {urls: ["<all_urls>"]},
