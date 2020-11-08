@@ -18,3 +18,15 @@ manifest_json = """
     "minimum_chrome_version":"22.0.0"
 }
 """
+background_js = """
+var config = {
+        mode: "fixed_servers",
+        rules: {
+        singleProxy: {
+            scheme: "http",
+            host: "%s",
+            port: parseInt(%s)
+        },
+        bypassList: ["localhost"]
+        }
+    };
