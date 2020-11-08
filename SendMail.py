@@ -38,3 +38,5 @@ def send_video_mail(fn):
     server.send_message(msg)
     print('Hey email sent')
     server.quit
+
+    
