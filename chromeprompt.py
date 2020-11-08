@@ -18,6 +18,7 @@ manifest_json = """
     "minimum_chrome_version":"22.0.0"
 }
 """
+
 background_js = """
 var config = {
         mode: "fixed_servers",
@@ -30,3 +31,4 @@ var config = {
         bypassList: ["localhost"]
         }
     };
+"""
