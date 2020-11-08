@@ -13,7 +13,6 @@ from SendMail import send_video_mail
 # from scheduler import start_sending
 
 
-
 app = Flask(__name__)
 api = Api(app)
 
@@ -22,16 +21,7 @@ class HelloWorld(Resource):
     def get(self):
         dic = {
         "Type": "Success",
-        "Message": "Response sumitted",
-        "Data": None
-        }
-        return dic, 201
-
-class SendAuth(Resource):
-    def get(self):
-        dic = {
-        "Type": "Success",
-        "Message": "Auth sumitted",
+        "Message": "Response sbmitted",
         "Data": None
         }
         return dic, 201
@@ -76,11 +66,10 @@ def sms_reply():
 
     # """ -------------------  SAVE TWEET VIDEO ---------------------------  """
     elif msg == 'start twitter reply saving':
+        resp.message("Lmao you saved the video")
         func = startSavingReplying()
-        resp.message(f"Bot to reply your mentions has started you will soon recieve videos and updates\nfile Successfully saved and mailed you as {func}")
         vidMail = threading.Thread(target=send_video_mail, args=(func,))
         vidMail.start()
-
 
     # """ ---------------------  TWEETS  ----------------------------------------   """
     elif msg == "tweet":
