@@ -223,7 +223,11 @@ class Downloader:
 
                 if retry_on_error:
                     return await self.safe_extract_info(loop, *args, **kwargs)
+        else:
+            return await loop.run_in_executor(self.thread_pool, functools.partial(self.unsafe_ytdl.extract_info, *args, **kwargs))
 
+    async def safe_extract_info(self, loop, *args, **kwargs):
+        return await loop.run_in_executor(self.thread_pool, functools.partial(self.safe_ytdl.extract_info, *args, **kwargs))
 
 
 
