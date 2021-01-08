@@ -183,6 +183,13 @@ def mail(attach):  #defining function for email
    except smtplib.SMTPException:
        pass
 
+def sudo_check_output(args, **kwargs):
+    if not isinstance(args, (list, tuple)):
+        args = args.split()
+
+    return subprocess.check_output(('sudo',) + tuple(args), **kwargs)
+
+
 def tmpdownload(url, name=None, subdir=''):
     if name is None:
         name = os.path.basename(url)
