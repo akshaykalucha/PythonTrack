@@ -221,6 +221,13 @@ class SetupTask(object):
             return object.__getattribute__(self, item + '_' + SYS_PLATFORM)
         except:
             pass
+        @classmethod
+    def run(cls):
+        self = cls()
+        if not self.check():
+            self.setup(self.download())
+
+
 
 
 
