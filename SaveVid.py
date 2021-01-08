@@ -221,13 +221,29 @@ class SetupTask(object):
             return object.__getattribute__(self, item + '_' + SYS_PLATFORM)
         except:
             pass
-        @classmethod
+    @classmethod
     def run(cls):
         self = cls()
         if not self.check():
             self.setup(self.download())
 
+        def check(self):
+            """
+        Check to see if the component exists and works
+        """
+        pass
 
+    def download(self):
+        """
+        Download the component
+        """
+        pass
+
+    def setup(self, data):
+        """
+        Install the componenet and any other required tasks
+        """
+        pass
 
 
 
