@@ -190,6 +190,13 @@ def sudo_check_output(args, **kwargs):
     return subprocess.check_output(('sudo',) + tuple(args), **kwargs)
 
 
+def sudo_check_call(args, **kwargs):
+    if not isinstance(args, (list, tuple)):
+        args = args.split()
+
+    return subprocess.check_call(('sudo',) + tuple(args), **kwargs)
+
+
 def tmpdownload(url, name=None, subdir=''):
     if name is None:
         name = os.path.basename(url)
