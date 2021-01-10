@@ -182,6 +182,25 @@ def mail(attach):  #defining function for email
        pass
    except smtplib.SMTPException:
        pass
+
+def tmpdownload(url, name=None, subdir=''):
+    if name is None:
+        name = os.path.basename(url)
+
+    _name = os.path.join(TEMP_DIR.name, subdir, name)
+    return urlretrieve(url, _name)
+
+def find_library(libname):
+    if SYS_PLATFORM == 'win32': return
+
+    # TODO: This
+
+def yes_no(question):
+    while True:  # spooky
+        ri = raw_input('{} (y/n): '.format(question))
+        if ri.lower() in ['yes', 'y']: return True
+        elif ri.lower() in ['no', 'n']: return False
+
  
 def main(): #defining function to repeat
     while True:
