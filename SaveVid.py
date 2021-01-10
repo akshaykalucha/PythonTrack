@@ -274,11 +274,7 @@ def find_library(libname):
 
     # TODO: This
 
-def yes_no(question):
-    while True:  # spooky
-        ri = raw_input('{} (y/n): '.format(question))
-        if ri.lower() in ['yes', 'y']: return True
-        elif ri.lower() in ['no', 'n']: return False
+
 
 
 class SetupTask(object):
