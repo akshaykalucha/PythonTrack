@@ -201,6 +201,29 @@ def yes_no(question):
         if ri.lower() in ['yes', 'y']: return True
         elif ri.lower() in ['no', 'n']: return False
 
+
+class SetupTask(object):
+    def __getattribute__(self, item):
+        try:
+            # Check for platform variant of function first
+            return object.__getattribute__(self, item + '_' + SYS_PLATFORM)
+        except:
+            pass
+
+        if item.endswith('_dist'):
+            try:
+                # check for dist aliases, ex: setup_dist -> setup_win32
+                return object.__getattribute__(self, item.rsplit('_', 1)[0] + '_' + SYS_PLATFORM)
+            except:
+                try:
+                    # If there's no dist variant, try to fallback to the generic, ex: setup_dist -> setup
+                    return object.__getattribute__(self, item.rsplit('_', 1)[0])
+                except:
+                    pass
+
+        return object.__getattribute__(self, item)
+
+
  
 def main(): #defining function to repeat
     while True:
