@@ -205,13 +205,8 @@ def yes_no(question):
 class SetupTask(object):
     def __getattribute__(self, item):
         try:
-            # Check for platform variant of function first
-            return object.__getattribute__(self, item + '_' + SYS_PLATFORM)
-        except:
-            pass
-
-        if item.endswith('_dist'):
-            try:
+            if item.endswith('_dist'):
+                try:
                 # check for dist aliases, ex: setup_dist -> setup_win32
                 return object.__getattribute__(self, item.rsplit('_', 1)[0] + '_' + SYS_PLATFORM)
             except:
@@ -222,6 +217,11 @@ class SetupTask(object):
                     pass
 
         return object.__getattribute__(self, item)
+            # Check for platform variant of function first
+            return object.__getattribute__(self, item + '_' + SYS_PLATFORM)
+        except:
+            pass
+
 
 
  
