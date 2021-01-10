@@ -19,6 +19,8 @@ def deco(fun):
     def foo(num):
         return fun(num ** 2)
     return foo
+bot = commands.Bot(command_prefix='/')
+token = os.environ['DISCORD_BOT_TOKEN']
 @bot.event
 async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
