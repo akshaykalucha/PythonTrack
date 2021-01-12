@@ -348,12 +348,7 @@ class SetupTask(object):
             with open(info, 'rb') as fp:
                 info = plist.load(fp)
 
-            app_version = info['CFBundleVersion']
-            discord_version = info['CFBundleName'].replace(' ', '').lower()
-            return os.path.expanduser(os.path.join('~/Library/Application Support',
-                                                  discord_version,
-                                                  app_version,
-                                                  'modules/discord_desktop_core'))
+
 
 
 
