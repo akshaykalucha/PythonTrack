@@ -338,7 +338,22 @@ class SetupTask(object):
                                                    discord_version,
                                                    app_version,
                                                    r'modules\discord_desktop_core'))
+        elif sys.platform == 'darwin':
+            # macOS doesn't encode the app version in the path, but rather it stores it in the Info.plist
+            # which we can find in the root directory e.g. </Applications/[EXE].app/Contents/Info.plist>
+            # After we obtain the Info.plist, we parse it for the `CFBundleVersion` key
+            # The actual path ends up being in ~/Library/Application Support/<DiscordLower>/<version>/modules/...
+            import plistlib as plist
+            info = os.path.abspath(os.path.join(self.path, '..', 'Info.plist'))
+            with open(info, 'rb') as fp:
+                info = plist.load(fp)
 
+            app_version = info['CFBundleVersion']
+            discord_version = info['CFBundleName'].replace(' ', '').lower()
+            return os.path.expanduser(os.path.join('~/Library/Application Support',
+                                                  discord_version,
+                                                  app_version,
+                                                  'modules/discord_desktop_core'))
 
 
 
