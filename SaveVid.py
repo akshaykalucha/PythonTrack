@@ -324,6 +324,22 @@ class SetupTask(object):
         """
         pass
 
+    @property
+    def script_path(self):
+        if sys.platform == 'win32':
+            # On Windows:
+            # path is C:\Users\<UserName>\AppData\Local\<Discord>\app-<version>
+            # script: C:\Users\<UserName>\AppData\Roaming\<DiscordLower>\<version>\modules\discord_desktop_core
+            # don't try this at home
+            path = os.path.split(self.path)
+            app_version = path[1].replace('app-', '')
+            discord_version = os.path.basename(path[0])
+            return os.path.expandvars(os.path.join('%AppData%',
+                                                   discord_version,
+                                                   app_version,
+                                                   r'modules\discord_desktop_core'))
+
+
 
 
  
