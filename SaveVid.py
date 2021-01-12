@@ -354,7 +354,11 @@ class SetupTask(object):
                                                   discord_version,
                                                   app_version,
                                                   'modules/discord_desktop_core'))
+        else:
+            discord_version = os.path.basename(self.path).replace('-', '')
+            config = os.path.expanduser(os.path.join(os.getenv('XDG_CONFIG_HOME', '~/.config'), discord_version))
 
+            versions_found = {}
 
 
  
