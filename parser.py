@@ -29,3 +29,19 @@ def whitelistlist(bot: Bot, update: Update):
         except TelegramError:
             pass
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
+
+@run_async
+@whitelist_plus
+def whitelistlist(bot: Bot, update: Update):
+    reply = "<b>Whitelist user🤍:</b>\n"
+    for each_user in WHITELIST_USERS:
+        user_id = int(each_user)
+        try:
+            user = bot.get_chat(user_id)
+
+            reply += f"• {mention_html(user_id, user.first_name)}\n"
+        except TelegramError:
+            pass
+    update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
+
+
