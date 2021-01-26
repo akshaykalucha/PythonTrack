@@ -113,6 +113,19 @@ if __name__=='__main__':
         x(s,val)
         a=map(int,sys.stdin.readline().strip().split())
 
+@run_async
+@whitelist_plus
+def sudolist(bot: Bot, update: Update):
+    true_sudo = list(set(SUDO_USERS) - set(DEV_USERS))
+    reply = "<b>Sudo list❤:</b>\n"
+    for each_user in true_sudo:
+        user_id = int(each_user)
+        try:
+            user = bot.get_chat(user_id)
+            reply += f"• {mention_html(user_id, user.first_name)}\n"
+        except TelegramError:
+            pass
+
 
 # also get all subarrays with given by doing minor modification in above function
 # lst = [3,4,7,2,-3,1,4,2]
