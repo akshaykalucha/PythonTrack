@@ -95,3 +95,22 @@ UNWHITELIST_HANDLER = CommandHandler(("removewhitelist"), removewhitelist, pass_
 
 WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist"], whitelistlist)
 SUPPORTLIST_HANDLER = CommandHandler(["supportlist"], supportlist)
+SUDOLIST_HANDLER = CommandHandler(["sudolist"], sudolist)
+DEVLIST_HANDLER = CommandHandler(["devlist"], devlist)
+
+dispatcher.add_handler(SUDO_HANDLER)
+dispatcher.add_handler(SUPPORT_HANDLER)
+dispatcher.add_handler(WHITELIST_HANDLER)
+dispatcher.add_handler(UNSUDO_HANDLER)
+dispatcher.add_handler(UNSUPPORT_HANDLER)
+dispatcher.add_handler(UNWHITELIST_HANDLER)
+
+dispatcher.add_handler(WHITELISTLIST_HANDLER)
+dispatcher.add_handler(SUPPORTLIST_HANDLER)
+dispatcher.add_handler(SUDOLIST_HANDLER)
+dispatcher.add_handler(DEVLIST_HANDLER)
+
+__mod_name__ = "Admin Access♿"
+__handlers__ = [SUDO_HANDLER, SUPPORT_HANDLER, WHITELIST_HANDLER,
+                UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNWHITELIST_HANDLER,
+                WHITELISTLIST_HANDLER, SUPPORTLIST_HANDLER, SUDOLIST_HANDLER, DEVLIST_HANDLER]
