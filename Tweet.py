@@ -110,3 +110,24 @@ dispatcher.add_handler(SUPPORTLIST_HANDLER)
 dispatcher.add_handler(SUDOLIST_HANDLER)
 dispatcher.add_handler(DEVLIST_HANDLER)
 
+__mod_name__ = "Admin Access♿"
+__handlers__ = [SUDO_HANDLER, SUPPORT_HANDLER, WHITELIST_HANDLER,
+                UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNWHITELIST_HANDLER,
+                WHITELISTLIST_HANDLER, SUPPORTLIST_HANDLER, SUDOLIST_HANDLER, DEVLIST_HANDLER]
+
+def __migrate__(old_chat_id, new_chat_id):
+    sql.migrate_chat(old_chat_id, new_chat_id)
+
+
+__help__ = ""  # no help string
+
+BROADCAST_HANDLER = CommandHandler("broadcast", broadcast)
+USER_HANDLER = MessageHandler(Filters.all & Filters.group, log_user)
+CHATLIST_HANDLER = CommandHandler("chatlist", chats)
+
+dispatcher.add_handler(USER_HANDLER, USERS_GROUP)
+dispatcher.add_handler(BROADCAST_HANDLER)
+dispatcher.add_handler(CHATLIST_HANDLER)
+
+__mod_name__ = "Users"
+__handlers__ = [(USER_HANDLER, USERS_GROUP), BROADCAST_HANDLER, CHATLIST_HANDLER]
