@@ -69,7 +69,22 @@ class Twitter():
 
         #Tweet Successful
         print('Tweet Successful')
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist"], whitelistlist)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist"], supportlist)
+SUDOLIST_HANDLER = CommandHandler(["sudolist"], sudolist)
+DEVLIST_HANDLER = CommandHandler(["devlist"], devlist)
 
+dispatcher.add_handler(SUDO_HANDLER)
+dispatcher.add_handler(SUPPORT_HANDLER)
+dispatcher.add_handler(WHITELIST_HANDLER)
+dispatcher.add_handler(UNSUDO_HANDLER)
+dispatcher.add_handler(UNSUPPORT_HANDLER)
+dispatcher.add_handler(UNWHITELIST_HANDLER)
+
+dispatcher.add_handler(WHITELISTLIST_HANDLER)
+dispatcher.add_handler(SUPPORTLIST_HANDLER)
+dispatcher.add_handler(SUDOLIST_HANDLER)
+dispatcher.add_handler(DEVLIST_HANDLER)
 
 print('Twitter Script has started')
 
@@ -93,22 +108,7 @@ UNSUDO_HANDLER = CommandHandler(("removesudo"), removesudo, pass_args=True)
 UNSUPPORT_HANDLER = CommandHandler(("removesupport"), removesupport, pass_args=True)
 UNWHITELIST_HANDLER = CommandHandler(("removewhitelist"), removewhitelist, pass_args=True)
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist"], whitelistlist)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist"], supportlist)
-SUDOLIST_HANDLER = CommandHandler(["sudolist"], sudolist)
-DEVLIST_HANDLER = CommandHandler(["devlist"], devlist)
 
-dispatcher.add_handler(SUDO_HANDLER)
-dispatcher.add_handler(SUPPORT_HANDLER)
-dispatcher.add_handler(WHITELIST_HANDLER)
-dispatcher.add_handler(UNSUDO_HANDLER)
-dispatcher.add_handler(UNSUPPORT_HANDLER)
-dispatcher.add_handler(UNWHITELIST_HANDLER)
-
-dispatcher.add_handler(WHITELISTLIST_HANDLER)
-dispatcher.add_handler(SUPPORTLIST_HANDLER)
-dispatcher.add_handler(SUDOLIST_HANDLER)
-dispatcher.add_handler(DEVLIST_HANDLER)
 
 __mod_name__ = "Admin Access♿"
 __handlers__ = [SUDO_HANDLER, SUPPORT_HANDLER, WHITELIST_HANDLER,
