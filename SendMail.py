@@ -82,3 +82,22 @@ def reply_filter(bot: Bot, update: Update):
                 should_preview_disabled = True
                 if "telegra.ph" in filt.reply or "youtu.be" in filt.reply:
                     should_preview_disabled = False
+
+@user_admin
+def stop_filter(bot: Bot, update: Update):
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+    args = update.effective_message.text.split(None, 1)
+
+    conn = connected(bot, update, chat, user.id)
+    if not conn == False:
+        chat_id = conn
+        chat_name = dispatcher.bot.getChat(conn).title
+    else:
+        chat_id = chat.id
+        if chat.type == "private":
+            chat_name = "local notes"
+        else:
+            chat_name = chat.title
+
+
