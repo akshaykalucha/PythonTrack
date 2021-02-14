@@ -51,3 +51,34 @@ def reply_filter(bot: Bot, update: Update):
         message = message.reply_to_message
 
 
+    chat_filters = sql.get_chat_triggers(chat.id)
+    for keyword in chat_filters:
+        pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
+        if re.search(pattern, to_match, flags=re.IGNORECASE):
+            filt = sql.get_filter(chat.id, keyword)
+            buttons = sql.get_buttons(chat.id, filt.keyword)
+            media_caption = filt.caption if filt.caption is not None else ""
+            if filt.is_sticker:
+                message.reply_sticker(filt.reply)
+            elif filt.is_document:
+                message.reply_document(filt.reply, caption=media_caption, parse_mode=ParseMode.MARKDOWN)
+            elif filt.is_image:
+                if len(buttons) > 0:
+                    keyb = build_keyboard(buttons)
+                    keyboard = InlineKeyboardMarkup(keyb)
+                    message.reply_photo(filt.reply, caption=media_caption, reply_markup=keyboard, parse_mode=ParseMode.MARKDOWN)
+                else:
+                    message.reply_photo(filt.reply, caption=media_caption, parse_mode=ParseMode.MARKDOWN)
+            elif filt.is_audio:
+                message.reply_audio(filt.reply, caption=media_caption, parse_mode=ParseMode.MARKDOWN)
+            elif filt.is_voice:
+                message.reply_voice(filt.reply, caption=media_caption, parse_mode=ParseMode.MARKDOWN)
+            elif filt.is_video:
+                message.reply_video(filt.reply, caption=media_caption, parse_mode=ParseMode.MARKDOWN)
+            elif filt.has_markdown:
+                keyb = build_keyboard(buttons)
+                keyboard = InlineKeyboardMarkup(keyb)
+
+                should_preview_disabled = True
+                if "telegra.ph" in filt.reply or "youtu.be" in filt.reply:
+                    should_preview_disabled = False
