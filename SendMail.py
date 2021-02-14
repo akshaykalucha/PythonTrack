@@ -109,3 +109,10 @@ def stop_filter(bot: Bot, update: Update):
         update.effective_message.reply_text("No filters are active here!")
         return
 
+    for keyword in chat_filters:
+        if keyword == args[1]:
+            sql.remove_filter(chat_id, args[1])
+            update.effective_message.reply_text("_Filter Deleted Successfully_ *{}*.".format(chat_name), parse_mode=telegram.ParseMode.MARKDOWN)
+            raise DispatcherHandlerStop
+
+    update.effective_message.reply_text("Your Filter Keyword is Incorrect please check Your Keyword /filters")
