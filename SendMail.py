@@ -100,4 +100,12 @@ def stop_filter(bot: Bot, update: Update):
         else:
             chat_name = chat.title
 
+    if len(args) < 2:
+        return
+
+    chat_filters = sql.get_chat_triggers(chat_id)
+
+    if not chat_filters:
+        update.effective_message.reply_text("No filters are active here!")
+        return
 
