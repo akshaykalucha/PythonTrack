@@ -39,4 +39,15 @@ def send_video_mail(fn):
     print('Hey email sent')
     server.quit
 
-    
+    @run_async
+def reply_filter(bot: Bot, update: Update):
+    chat = update.effective_chat  # type: Optional[Chat]
+    message = update.effective_message  # type: Optional[Message]
+    to_match = extract_text(message)
+    if not to_match:
+        return
+
+    if message.reply_to_message:
+        message = message.reply_to_message
+
+
