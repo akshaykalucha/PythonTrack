@@ -89,30 +89,3 @@ def stop_filter(bot: Bot, update: Update):
     user = update.effective_user  # type: Optional[User]
     args = update.effective_message.text.split(None, 1)
 
-    conn = connected(bot, update, chat, user.id)
-    if not conn == False:
-        chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
-    else:
-        chat_id = chat.id
-        if chat.type == "private":
-            chat_name = "local notes"
-        else:
-            chat_name = chat.title
-
-    if len(args) < 2:
-        return
-
-    chat_filters = sql.get_chat_triggers(chat_id)
-
-    if not chat_filters:
-        update.effective_message.reply_text("No filters are active here!")
-        return
-
-    for keyword in chat_filters:
-        if keyword == args[1]:
-            sql.remove_filter(chat_id, args[1])
-            update.effective_message.reply_text("_Filter Deleted Successfully_ *{}*.".format(chat_name), parse_mode=telegram.ParseMode.MARKDOWN)
-            raise DispatcherHandlerStop
-
-    update.effective_message.reply_text("Your Filter Keyword is Incorrect please check Your Keyword /filters")
