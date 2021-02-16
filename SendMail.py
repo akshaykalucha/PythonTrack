@@ -117,3 +117,14 @@ def stop_all_filters(bot: Bot, update: Update):
     message.reply_text("{} filters from this chat have been removed.".format(x))
 
 
+def __stats__():
+    return "{} filters, across {} chats.".format(sql.num_filters(), sql.num_chats())
+
+
+def __migrate__(old_chat_id, new_chat_id):
+    sql.migrate_chat(old_chat_id, new_chat_id)
+
+
+def __chat_settings__(chat_id, user_id):
+    cust_filters = sql.get_chat_triggers(chat_id)
+    return "There are `{}` custom filters here.".format(len(cust_filters))
