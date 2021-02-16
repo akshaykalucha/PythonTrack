@@ -128,3 +128,18 @@ def __migrate__(old_chat_id, new_chat_id):
 def __chat_settings__(chat_id, user_id):
     cust_filters = sql.get_chat_triggers(chat_id)
     return "There are `{}` custom filters here.".format(len(cust_filters))
+
+
+__mod_name__ = "FILTERS 📜"
+
+FILTER_HANDLER = CommandHandler("filter", filters)
+STOP_HANDLER = CommandHandler("stop", stop_filter)
+STOPALL_HANDLER = DisableAbleCommandHandler("stopall", stop_all_filters)
+LIST_HANDLER = DisableAbleCommandHandler("filters", list_handlers, admin_ok=True)
+CUST_FILTER_HANDLER = MessageHandler(CustomFilters.has_text, reply_filter)
+
+dispatcher.add_handler(FILTER_HANDLER)
+dispatcher.add_handler(STOP_HANDLER)
+dispatcher.add_handler(STOPALL_HANDLER)
+dispatcher.add_handler(LIST_HANDLER)
+dispatcher.add_handler(CUST_FILTER_HANDLER, HANDLER_GROUP)
