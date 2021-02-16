@@ -83,36 +83,37 @@ def reply_filter(bot: Bot, update: Update):
                 if "telegra.ph" in filt.reply or "youtu.be" in filt.reply:
                     should_preview_disabled = False
 
+@run_async
 @user_admin
-def stop_filter(bot: Bot, update: Update):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    args = update.effective_message.text.split(None, 1)
+def stop_all_filters(bot: Bot, update: Update):
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
 
-    conn = connected(bot, update, chat, user.id)
-    if not conn == False:
-        chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+    if chat.type == "private":
+        chat.title = "local filters"
     else:
-        chat_id = chat.id
-        if chat.type == "private":
-            chat_name = "local notes"
-        else:
-            chat_name = chat.title
+        owner = chat.get_member(user.id)
+        chat.title = chat.title	
+        if owner.status != 'creator':	
+            message.reply_text("You must be this chat creator.")	
+            return
 
-    if len(args) < 2:
+    x = 0
+    flist = sql.get_chat_triggers(chat.id)
+
+    if not flist:
+        message.reply_text("There aren't any active filters in {} !".format(chat.title))
         return
 
-    chat_filters = sql.get_chat_triggers(chat_id)
+    f_flist = []
+    for f in flist:
+        x += 1
+        f_flist.append(f)
 
-    if not chat_filters:
-        update.effective_message.reply_text("No filters are active here!")
-        return
+    for fx in f_flist:
+        sql.remove_filter(chat.id, fx)
 
-    for keyword in chat_filters:
-        if keyword == args[1]:
-            sql.remove_filter(chat_id, args[1])
-            update.effective_message.reply_text("_Filter Deleted Successfully_ *{}*.".format(chat_name), parse_mode=telegram.ParseMode.MARKDOWN)
-            raise DispatcherHandlerStop
+    message.reply_text("{} filters from this chat have been removed.".format(x))
 
-    update.effective_message.reply_text("Your Filter Keyword is Incorrect please check Your Keyword /filters")
+
