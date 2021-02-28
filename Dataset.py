@@ -68,3 +68,20 @@ class MolGraphDataset(tg.data.Dataset):
             labels = None
         data = create_molecular_graph_data(self.molecules[idx], labels)
         return self.norm(data)
+
+#USER SCHEMA VALIDATION
+
+SCHEMA_OPTIMIZER = Schema({
+
+    Optional("name", default="sgd"): any_lambda(("adam", "sgd")),
+
+    # Learning rate
+    Optional("lr", default=0.1): float,
+
+    # Momentum
+    Optional("momentum", default=0): float,
+
+    # Nesterov accelerated gradient
+    Optional("nesterov", default=False): bool
+
+})
