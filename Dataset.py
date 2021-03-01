@@ -85,3 +85,57 @@ SCHEMA_OPTIMIZER = Schema({
     Optional("nesterov", default=False): bool
 
 })
+
+
+TORCH_DEFAULTS = SCHEMA_TORCH.validate({})
+
+
+SCHEMA_MODEL = Schema({
+    # Model's name
+    "name": str,
+    # Parameters to feed the model
+    Optional("parameters", default={}): dict,
+})
+
+
+SCHEMA_FINGERPRINTS = Schema({
+    Optional("fingerprint", default='atompair'): any_lambda(('morgan', 'atompair', 'torsion')),
+    Optional("nbits", default=2048): int
+})
+
+SCHEMA_GRAPH = Schema({
+    "molecular_graph": dict
+})
+
+SCHEMA_MODELER = Schema({
+    # Load the dataset from a file
+    "dataset_file": str,
+
+    # Property to predict
+    "properties": [str],
+
+    # Method to get the features
+    "featurizer": Or(SCHEMA_FINGERPRINTS, equal_lambda("molecular_graph")),
+
+    # Whether to use CPU or GPU
+    Optional("use_cuda", default=False): bool,
+
+    Optional("model", default={}): SCHEMA_MODEL,
+
+    Optional("scale_labels", default=True): bool,
+
+    # Sanitize smiles
+    Optional("sanitize", default=False): bool,
+
+    # Network and training options options
+    Optional("torch_config", default=TORCH_DEFAULTS): SCHEMA_TORCH,
+
+    # File to save the models
+    Optional("model_path", default="swan_models.pt"): str,
+
+    # File to save the scales for the features
+    Optional("model_scales", default="model_scales.pkl"): str,
+
+    # Workdir
+    Optional("workdir", default="."): str
+})
