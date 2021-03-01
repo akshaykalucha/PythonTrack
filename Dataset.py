@@ -158,8 +158,18 @@ def validate_input(file_input: PathLike) -> Options:
         raise
 
 
-def check_if_cuda_is_available(opts: Options):
-    """Check that a CUDA device is available, otherwise turnoff the option."""
-    if not torch.cuda.is_available():
-        opts.use_cuda = False
-        warnings.warn("There is not CUDA device available using default CPU methods")
+
+
+PathLike = Union[str, Path]
+
+
+def equal_lambda(name: str):
+    """Create an schema checking that the keyword matches the expected value."""
+    return And(
+        str, Use(str.lower), lambda s: s == name)
+
+
+def any_lambda(array: Iterable[str]):
+    """Create an schema checking that the keyword matches one of the expected values."""
+    return And(
+        str, Use(str.lower), lambda s: s in array)
