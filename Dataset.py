@@ -141,25 +141,6 @@ SCHEMA_MODELER = Schema({
 })
 
 
-def validate_input(file_input: PathLike) -> Options:
-    """Check the input validation against an schema."""
-    with open(file_input, 'r') as f:
-        dict_input = yaml.load(f.read(), Loader=yaml.FullLoader)
-    try:
-        data = SCHEMA_MODELER.validate(dict_input)
-        opts = Options(data)
-        if opts.use_cuda:
-            check_if_cuda_is_available(opts)
-        return opts
-
-    except SchemaError as err:
-        msg = f"There was an error in the input yaml provided:\n{err}"
-        print(msg)
-        raise
-
-
-
-
 PathLike = Union[str, Path]
 
 
