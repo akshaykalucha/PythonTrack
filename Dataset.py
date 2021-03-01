@@ -139,3 +139,27 @@ SCHEMA_MODELER = Schema({
     # Workdir
     Optional("workdir", default="."): str
 })
+
+
+def validate_input(file_input: PathLike) -> Options:
+    """Check the input validation against an schema."""
+    with open(file_input, 'r') as f:
+        dict_input = yaml.load(f.read(), Loader=yaml.FullLoader)
+    try:
+        data = SCHEMA_MODELER.validate(dict_input)
+        opts = Options(data)
+        if opts.use_cuda:
+            check_if_cuda_is_available(opts)
+        return opts
+
+    except SchemaError as err:
+        msg = f"There was an error in the input yaml provided:\n{err}"
+        print(msg)
+        raise
+
+
+def check_if_cuda_is_available(opts: Options):
+    """Check that a CUDA device is available, otherwise turnoff the option."""
+    if not torch.cuda.is_available():
+        opts.use_cuda = False
+        warnings.warn("There is not CUDA device available using default CPU methods")
