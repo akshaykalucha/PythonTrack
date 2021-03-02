@@ -25,3 +25,28 @@ class BingViews():
         # Calculate the weighted average
         bp = ((weight * ap) + (totals * basicprob)) / (weight + totals)
         return bp
+
+class naivebayes(classifier):
+    def __init__(self,getfeatures):
+        classifier.__init__(self,getfeatures)
+        self.thresholds = {}
+
+    def setthreshold(self,cat,t):
+        self.thresholds[cat] = t
+
+    def getthreshold(self,cat):
+        if cat not in self.thresholds:
+            return 1.0
+        return self.thresholds[cat]
+
+    def classify(self, item, default=None):
+        # Find the category with the highest probability
+        max = 0
+        for cat in self.categories():
+            cat_prob = self.prob(item, cat)
+            # print cat, probs[cat]
+            if cat_prob >= max:
+                max = cat_prob
+                best = cat
+
+        return best
