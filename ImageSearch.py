@@ -50,3 +50,22 @@ class naivebayes(classifier):
                 best = cat
 
         return best
+        
+        def classify_with_thresholds(self,item,default=None):
+            probs={}
+        # Find the category with the highest probability
+        max=0.0
+        for cat in self.categories():
+            probs[cat]=self.prob(item,cat)
+            #print cat, probs[cat]
+            if probs[cat]>max:
+                max = probs[cat]
+                best = cat
+            
+        # Make sure the probability exceeds threshold*next best
+        for cat in probs:
+            if cat == best:
+                continue
+            if probs[cat]*self.getthreshold(best)>probs[best]:
+                return default
+        return best
