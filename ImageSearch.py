@@ -13,3 +13,15 @@ class BingViews():
         req = requests.get("https://api.datamarket.azure.com/Bing/Search/v1/Image?Query=%27{}%27&$format=json&$top=1".format(match.group("term")), auth=("",config.bing_api))
         image_url = urllib.unquote(req.json()['d']['results'][0]['MediaUrl'].encode('utf-8'))
         self.image_sender.send_by_url(jid=message.getFrom(), file_url=image_url)
+
+    def weightedprob(self,f,cat,prf,weight=1.0,ap=0.5):
+        # Calculate current probability
+        basicprob = prf(f,cat)
+
+        # Count the number of times this feature has appeared in 
+        # all categories
+        totals = sum([self.fcount(f,c) for c in self.categories()])
+        
+        # Calculate the weighted average
+        bp = ((weight * ap) + (totals * basicprob)) / (weight + totals)
+        return bp
