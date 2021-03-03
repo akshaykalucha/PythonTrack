@@ -195,3 +195,29 @@ class FingerprintModeller(Modeller):
 
         return DataLoader(
             dataset=dataset, batch_size=self.opts.torch_config.batch_size)
+    def sanitize_data(self):
+        """Check that the data in the DataFrame is valid."""
+        # discard nan values
+        self.data.dropna(inplace=True)
+
+        # Create conformers
+        self.data['molecules'].apply(lambda mol: AllChem.EmbedMolecule(mol))
+
+        # Discard molecules that do not have conformer
+        LOGGER.info("Removing molecules that don't have any conformer.")
+        self.data = self.data[self.data['molecules'].apply(lambda x: x.GetNumConformers()) >= 1]
+
+    def create_new_model(self):
+        """Configure a new model."""
+        self.epoch = 0
+        self.set_network()
+        self.set_optimizer()
+        # Scales for the features
+        self.path_scales = Path(self.opts.workdir) / "swan_scales.pkl"
+
+        # Reload model from file
+        if self.opts.restart or self.opts.mode == "predict":
+            self.load_model()
+
+        # Create loss function
+        self.loss_func = getattr(nn, self.opts.torch_config.loss_function)()
