@@ -10,6 +10,19 @@ from torch.utils.data import Dataset
 from .graph.molecular_graph import create_molecular_graph_data
 
 
+def main():
+    """Parse the command line arguments and call the modeller class."""
+    parser = argparse.ArgumentParser(description="modeller -i input.yml")
+    # configure logger
+    parser.add_argument('-i', required=True,
+                        help="Input file with options")
+    parser.add_argument("-m", "--mode", help="Operation mode: train or predict",
+                        choices=["train", "predict"], default="train")
+    parser.add_argument("--restart", help="restart training", action="store_true", default=False)
+    parser.add_argument('-w', help="workdir", default=".")
+    args = parser.parse_args()
+
+
 class FingerprintsDataset(Dataset):
     """Read the smiles, properties and compute the fingerprints."""
 
@@ -169,3 +182,16 @@ def any_lambda(array: Iterable[str]):
     """Create an schema checking that the keyword matches one of the expected values."""
     return And(
         str, Use(str.lower), lambda s: s in array)
+
+class FingerprintModeller(Modeller):
+    """Object to create models using fingerprints."""
+
+    def create_data_loader(self, indices: np.ndarray) -> DataLoader:
+        """Create a DataLoader instance for the data."""
+        dataset = FingerprintsDataset(
+            self.data.loc[indices], self.opts.properties,
+            self.opts.featurizer.fingerprint,
+            self.opts.featurizer.nbits)
+
+        return DataLoader(
+            dataset=dataset, batch_size=self.opts.torch_config.batch_size)
