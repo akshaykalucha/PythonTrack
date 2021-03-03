@@ -221,3 +221,19 @@ class FingerprintModeller(Modeller):
 
         # Create loss function
         self.loss_func = getattr(nn, self.opts.torch_config.loss_function)()
+    def set_network(self) -> None:
+        """Select the network to use."""
+        self.network = select_model(self.opts.model)
+        self.network = self.network.to(self.device)
+
+    def set_optimizer(self) -> None:
+        """Select the optimizer."""
+        optimizers = {"sgd": torch.optim.SGD, "adam": torch.optim.Adam}
+        config = self.opts.torch_config.optimizer
+        fun = optimizers[config["name"]]
+        if config["name"] == "sgd":
+            self.optimizer = fun(self.network.parameters(), lr=config["lr"],
+                                 momentum=config["momentum"], nesterov=config["nesterov"])
+        else:
+            self.optimizer = fun(self.network.parameters(), lr=config["lr"])
+        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', min_lr=0.00001)
