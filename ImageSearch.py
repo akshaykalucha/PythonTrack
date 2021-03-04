@@ -171,3 +171,27 @@ class fisherclassifier(classifier):
                 best=c
                 max=p
         return best
+
+
+class Predictor:  # Predictor class for collecting data, training and creating classifier and make prediction
+    def __init__(self):
+        self.classifier = ""
+        self.faculty_members = {}
+        self.projects = {}
+
+    def fetch_members(self):  # collects the links to the members profile pages from the first link
+        url = app.entry_url_people.get()
+        page = urllib2.urlopen(url)
+        doc = page.read()
+        soup = BeautifulSoup(doc, 'html.parser')
+        items = soup.find_all(class_="member")
+        links_temp = []
+        for i in items:
+            for tag in i.find_all('a'):
+                links_temp.append(tag.get('href'))
+        links = []
+        i = 0
+        while i < len(links_temp):
+            links.append("http://cs.sehir.edu.tr"+links_temp[i])
+            i += 3
+        return links
