@@ -88,6 +88,13 @@ class naivebayes(classifier):
         return best
 
 
+
+
+
+
+
+
+
 class fisherclassifier(classifier):
     def cprob(self,f,cat):
         # The frequency of this feature in this category
@@ -114,3 +121,35 @@ class fisherclassifier(classifier):
         if cat not in self.minimums:
             return 0
         return self.minimums[cat]
+
+    def fisherprob(self,item,cat):
+        # Multiply all the probabilities together
+        p = 1
+        features = self.getfeatures(item)
+        for f in features:
+            p *= (self.weightedprob(f,cat,self.cprob))
+            # Take the natural log and multiply by -2
+            fscore = -2*math.log(p)
+
+        # Use the inverse chi2 function to get a probability
+        return self.invchi2(fscore,len(features)*2)
+
+    def invchi2(self,chi,df):
+        m = chi / 2.0
+        sum = term = math.exp(-m)
+        for i in range(1, df//2):
+            term *= m / i
+            sum += term
+        return min(sum, 1.0)
+
+    def classify(self,item,default=None):
+        # Loop through looking for the best result
+        best = default
+        max = 0.0
+        for c in self.categories():
+            p = self.fisherprob(item,c)
+            # Make sure it exceeds its minimum
+            if p>self.getminimum(c) and p>max:
+                best=c
+                max=p
+        return best
