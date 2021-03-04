@@ -192,6 +192,35 @@ class Predictor:  # Predictor class for collecting data, training and creating c
         links = []
         i = 0
         while i < len(links_temp):
-            links.append("http://cs.sehir.edu.tr"+links_temp[i])
+            links.append("ht"+links_temp[i])
             i += 3
         return links
+
+
+            def fetch_publications(self):  # goes to each members profile page and collects all the necessary data
+        list_of_members_url = self.fetch_members()
+        for member_url in list_of_members_url:
+            url = member_url
+            page = urllib2.urlopen(url)
+            doc = page.read()
+            soup = BeautifulSoup(doc, 'html.parser')
+            name = soup.find_all('h3')
+            name = name[0].text.split()
+            name = name[0] + " " + name[-1]
+            table = soup.find_all(class_="tab-pane active pubs")
+            publications = []
+            for item in table:
+                for tag in item.find_all("li"):
+                    app_item = tag.text.strip()[4:]  # filtering out unwanted info and characters
+                    while app_item.startswith('\n'):
+                        app_item = app_item[1:]
+                    if app_item.endswith("[1\n  Citation]"):
+                        app_item = app_item[:-19]
+                    elif app_item.endswith("\n  \n  Citations]"):
+                        app_item = app_item[:-23]
+                        while app_item.endswith('\n'):
+                            app_item = app_item[:-1]
+                        app_item = app_item
+                    publications.append(app_item)
+            current_fac_member = FacultyMember(name, member_url, publications)  # crating a faculty member object for adding to database
+            self.faculty_members.setdefault(name, current_fac_member)  # adding each member to the database
