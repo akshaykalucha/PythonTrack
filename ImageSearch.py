@@ -86,3 +86,31 @@ class naivebayes(classifier):
             if probs[cat]*self.getthreshold(best)>probs[best]:
                 return default
         return best
+
+
+class fisherclassifier(classifier):
+    def cprob(self,f,cat):
+        # The frequency of this feature in this category
+        clf = self.fprob(f,cat)
+        if clf == 0:
+            return 0
+        
+        # The frequency of this feature in all the categories
+        freqsum = sum([self.fprob(f,c) for c in self.categories()])
+         
+        # The probability is the frequency in this category divided by
+        # the overall frequency
+        p = clf/(freqsum)
+        return p
+
+    def __init__(self,getfeatures):
+        classifier.__init__(self,getfeatures)
+        self.minimums={}    
+
+    def setminimum(self,cat,min):
+        self.minimums[cat]=min
+      
+    def getminimum(self,cat):
+        if cat not in self.minimums:
+            return 0
+        return self.minimums[cat]
