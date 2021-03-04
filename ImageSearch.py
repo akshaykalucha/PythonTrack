@@ -88,7 +88,25 @@ class naivebayes(classifier):
         return best
 
 
+class Member:  # class for member
+    def __init__(self, name, profile_url, publications):
+        self.name = name
+        self.profile_url = profile_url
+        self.publications = publications
 
+
+class IMGpro:  # class for IMG
+    def __init__(self, title, summary, PI_name):
+        self.title = title
+        self.summary = summary
+        self.PI_name = PI_name
+
+
+root = Tk()
+root.geometry("1050x500")
+root.title("PI Estimator Tool for SEHIR CS Projects")
+app = PI_Estimator(root)
+root.mainloop()
 
 
 
