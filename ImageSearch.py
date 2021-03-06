@@ -12,12 +12,7 @@ def getwords(doc):
     # Return the unique set of words only
     return dict([(w,1) for w in words])
 
-def sampletrain(cl):
-    cl.train('Nobody owns the water.','good')
-    cl.train('the quick rabbit jumps fences','good')
-    cl.train('buy pharmaceuticals now','bad')
-    cl.train('make quick money at the online  casino','bad')
-    cl.train('the quick brown fox jumps','good')
+
 
 class BingViews():
     def __init__(self, interface_layer):
@@ -42,6 +37,13 @@ class BingViews():
         # Calculate the weighted average
         bp = ((weight * ap) + (totals * basicprob)) / (weight + totals)
         return bp
+
+    def sampletrain(cl):
+        cl.train('Nobody owns the water.','good')
+        cl.train('the quick rabbit jumps fences','good')
+        cl.train('buy pharmaceuticals now','bad')
+        cl.train('make quick money at the online  casino','bad')
+        cl.train('the quick brown fox jumps','good')
 
 class naivebayes(classifier):
     def __init__(self,getfeatures):
