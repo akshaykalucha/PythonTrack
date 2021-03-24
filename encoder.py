@@ -407,3 +407,29 @@ l1.printLL()
 print("Element removed from last : ")
 l1.removeFromEnd()
 l1.printLL()
+
+
+def QuickSort(list1):
+    	if len(list1) < 2:
+		return list1
+
+	high, same, low = [], [], []
+	pivot = list1[len(list1) // 2]
+
+	for i in list1:
+		if i < pivot:
+			low.append(i)
+		elif i == pivot:
+			same.append(i)
+		elif i > pivot:
+			high.append(i)
+
+	return QuickSort(low) + same + QuickSort(high)
+
+print("Enter elements with a space : ")
+nums = [int(x) for x in input().split()]
+print("Original List : ")
+print(nums)
+print("Sorted List : ")
+nums = QuickSort(nums)
+print(nums)
