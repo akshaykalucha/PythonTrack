@@ -40,6 +40,33 @@ class EvaluateChoose(object):
         return results
 
 
+    def choose_max(self, validation_data, validation_labels):
+        # validation data and validation labels are given as input in order to call evaluation function
+        # We get results list and we choose the model which has maximum accuracy
+        results = self.evaluation(validation_data, validation_labels)
+        max_result = max(results, key=lambda item: item[1])
+        print('The best accuracy was obtained from the {}!'.format(max_result[0]))
+
+        return max_result
+
+    def split_return_aug_types(self, model_name):
+        # This function is for splitting augmentation types from the model name. It is used in order to make the code
+        # run automatically
+        temp_name = model_name[:-3]
+        delete_index = len('model_')
+        result = temp_name[delete_index:]
+        aug_types = []
+
+        if 'together' in result:
+            aug_types.append(result)
+        elif 'without_augmentation' in result:
+            aug_types = []
+        else:
+            if '_' in result:
+                aug_types = result.split('_')
+            else:
+                aug_types.append(result)
+        return aug_types
 
 def getwords(doc):
     splitter = re.compile('\\W*')
