@@ -111,7 +111,26 @@ app = PI_Estimator(root)
 root.mainloop()
 
 
+# Validation data is taken from folders
+data_validation, labels_validation = rd_validation.load_augmented_dataset([])
+validation_dataset = (data_validation, labels_validation)
 
+# Evaluate and Choose class is declared here
+
+ev_choose = EvaluateChoose(models_path, configuration_path)
+maximum_result = ev_choose.choose_max(data_validation, labels_validation)
+augmentation_of_max = ev_choose.split_return_aug_types(maximum_result[0])
+
+# Transfer Learning for non-pretrained model 100 epochs
+
+#     unfreezed   weights     trainable
+# NP  False       None        True          non pretrained
+# PF  False       'imagenet'  False         frozen pretrained
+# PD  True        'imagenet'  True          defrosted pretrained
+
+models = {'pre_trained_frozen': [False, 'imagenet', False],
+          'unfreezed_pretrained': [True, 'imagenet', True],
+          'non_pretrained': [False, None, True]}
 
 epochs = 100
 print('VGG16 will be trained in {} combinations on the following dataset: {}.'.format(len(models), augmentation_of_max))
