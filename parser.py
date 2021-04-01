@@ -4,6 +4,18 @@ import html
 import os
 from typing import List, Optional
 
+import sqlite3
+
+def connect():
+    conn=sqlite3.connect("books.db")       #build a connect to the database
+    cur=conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY, title text, author text, year integer, isbn integer)")        
+     #execute a SQL statement. 
+     #And if there's no such data then build a new table to install the data
+     #Also need some parameter to check the new data. (id, title, year, isbn )
+    conn.commit()
+    conn.close() 
+
 # from telegram import Bot, Update, ParseMode, TelegramError
 # from telegram.ext import CommandHandler, run_async
 # from telegram.utils.helpers import mention_html
