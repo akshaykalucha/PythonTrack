@@ -72,6 +72,37 @@ def supportlist(bot: Bot, update: Update):
         return ""
 
 
+
+def connect():
+    conn=sqlite3.connect("books.db")       #build a connect to the database
+    cur=conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY, title text, author text, year integer, isbn integer)")        
+     #execute a SQL statement. 
+     #And if there's no such data then build a new table to install the data
+     #Also need some parameter to check the new data. (id, title, year, isbn )
+    conn.commit()
+    conn.close() 
+
+def insert(title, author, year, isbn):
+    conn=sqlite3.connect("books.db")       #build a connect to the database
+    cur=conn.cursor()
+    # when click the insert button in the frontend, the system should execute thte new commit and connect with database.
+    cur.execute("INSERT INTO book VALUES (NULL,?,?,?,?)",(title,author,year,isbn)) 
+    # (trick)'NULL'==python will create a ID directly.
+    conn.commit()
+    conn.close() 
+
+def view():
+    conn=sqlite3.connect("books.db")       #build a connect to the database
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM book")       # select all the things from the book
+    rows=cur.fetchall()       #a rows function to return the tuple
+    conn.close() 
+    return rows
+ 
+
+
+
 def search(title="", author="", year="", isbn=""):       # To pass some empty strings as default values. 
     # (="") Even thougt you input only one value of one parameter, the system will not be error.
     conn=sqlite3.connect("books.db")       #build a connect to the database
