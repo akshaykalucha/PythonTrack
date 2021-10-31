@@ -157,4 +157,3 @@ def doc_scan_pipeline(input=PATH, output="./img/scanned_doc.jpg"):
 
 if __name__ == "__main__":
     doc_scan_pipeline(input="./img/holo2.jpeg", output="./img/scanned_doc.jpg")
-    # doc_scan_pipeline(input="./img/tnk_art.jpg", output="./img/tnk_scan.jpg")
