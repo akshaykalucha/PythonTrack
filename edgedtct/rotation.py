@@ -15,3 +15,11 @@ lin_res = cv2.resize(img, None, fx=5.5, fy=5.5, interpolation=cv2.INTER_CUBIC)
 matrix = np.float32([[1,0,50], [0,1,100]])
 # apply M to the image
 translated = cv2.warpAffine(img, matrix, (img.shape[1]+100, img.shape[0]+100))
+
+# image rotation
+# rotation matrix
+height, width = img.shape[:2]
+matrix = cv2.getRotationMatrix2D((width/2, height/2), 10, 1)
+
+#apply matrix to image
+rotated = cv2.warpAffine(img, matrix, (width, height))
