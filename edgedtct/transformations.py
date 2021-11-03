@@ -48,3 +48,12 @@ dist_points = np.float32([[0,0], [int(0.6*(cols-1)), 0], [int(0.4*(cols-1)), row
 
 affine_matrix = cv2.getAffineTransform(src_points, dist_points)
 output = cv2.warpAffine(img, affine_matrix, (cols, rows))
+
+
+# Projective transformation
+# This transformation can even tilt paralle lines, ex: square can become trapezium
+# Projective means changing view
+# uses 3x3 matrix
+# in affine transform we use three points, in projective we have to use 4 points
+# Projective transform is also used in document scanners
+
