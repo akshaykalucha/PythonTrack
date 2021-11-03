@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from numpy.lib.function_base import disp
 
 # euclidean and isometic
 # affine
@@ -30,9 +31,19 @@ translated = cv2.warpAffine(img, matrix, (img.shape[1]+100, img.shape[0]+100))
 
 # Affine transformation
 
-# --> Affine transformation has siz degrees of freedom, two for translation, one for rotation, one for scaling
+# --> Affine transformation has six degrees of freedom, two for translation, one for rotation, one for scaling
 #     one for scaling direction and one for scaling ratio
 # In short in affine transformation the matrix can rotated, translated, scaled and sheared
 
 # In Affine transformation parallel line will be preserved but maybe sheared or streched, ex: squares may become
 # parallelogram
+
+# using a 2x3 matrix and warpAffine function i can rotate, shear, translate or scale matrix
+
+rows, cols = img.shape[:2]
+
+src_points = np.float32([[0,0], [cols-1, 0], [0, rows-1]])
+dist_points = np.float32([[0,0], [int(0.6*(cols-1)), 0], [int(0.4*(cols-1)), rows-1]])
+
+affine_matrix = cv2.getAffineTransform(src_points, dist_points)
+output = cv2.warpAffine(img, affine_matrix, (cols, rows))
