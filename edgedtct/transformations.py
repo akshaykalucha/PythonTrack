@@ -29,3 +29,10 @@ translated = cv2.warpAffine(img, matrix, (img.shape[1]+100, img.shape[0]+100))
 
 
 # Affine transformation
+
+# --> Affine transformation has siz degrees of freedom, two for translation, one for rotation, one for scaling
+#     one for scaling direction and one for scaling ratio
+# In short in affine transformation the matrix can rotated, translated, scaled and sheared
+
+# In Affine transformation parallel line will be preserved but maybe sheared or streched, ex: squares may become
+# parallelogram
