@@ -24,5 +24,8 @@ img = cv2.imread('linkedinDP.jpg')
 # Translation matrix
 matrix = np.float32([[1,0,100], [0,1,100]])
 
-# apply matrix to the image
+# apply matrix to the image, affine  is generalisation of euclidean transformation
 translated = cv2.warpAffine(img, matrix, (img.shape[1]+100, img.shape[0]+100))
+
+
+# Affine transformation
