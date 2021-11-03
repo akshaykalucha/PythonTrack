@@ -42,6 +42,7 @@ translated = cv2.warpAffine(img, matrix, (img.shape[1]+100, img.shape[0]+100))
 
 rows, cols = img.shape[:2]
 
+# only three points needed for transform matrix
 src_points = np.float32([[0,0], [cols-1, 0], [0, rows-1]])
 dist_points = np.float32([[0,0], [int(0.6*(cols-1)), 0], [int(0.4*(cols-1)), rows-1]])
 
