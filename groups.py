@@ -1,0 +1,2 @@
+class Dihedral:
+    def self
