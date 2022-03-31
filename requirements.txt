@@ -1,0 +1,10 @@
+Flask==1.1.2
+requests==2.26.0
+tbselenium==0.5.3
+selenium==3.141.0
+json5==0.9.5
+jsonschema==3.2.0
+simplejson==3.17.4
+fake-useragent==0.1.11
+txaio==20.4.1
+aiohttp==3.7.4.post0
