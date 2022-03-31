@@ -6,13 +6,19 @@ from fake_useragent import UserAgent
 import json 
 import os
 
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
 
 options = Options()
 options.add_argument('--headless')
 # options.add_argument('--window-size=1920,1080')
-# ua = UserAgent()
-# userAgent = ua.random
-# options.add_argument(f'user-agent={userAgent}')
+ua = UserAgent()
+userAgent = ua.random
+options.add_argument(f'user-agent={userAgent}')
 
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
@@ -23,8 +29,9 @@ def getInfo(name):
 
     URL = "https://instagram.com"
 
-    username = os.environ["username"]
-    password = os.environ["password"]
+    username = os.environ.get("username")
+    password = os.environ.get("password")
+
 
     driver.get(URL)
 

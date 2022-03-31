@@ -1,38 +1,24 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-import time
-from fake_useragent import UserAgent
+from googleapiclient.discovery import build
 import json 
-import os
 
+# UCJSzwLMy_0yDvVVtMxWzRcg
 
-options = Options()
-options.add_argument('--headless')
-# options.add_argument('--window-size=1920,1080')
-# ua = UserAgent()
-# userAgent = ua.random
-# options.add_argument(f'user-agent={userAgent}')
+def getChInfo(channelID):
 
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    youtube = build('youtube', 'v3',
+                    developerKey='AIzaSyC59EjyfGfTapw8F4HHY7zBsiOOcV2M7ho')
+    ch_request = youtube.channels().list(
+        part='statistics', id=f"{channelID}")
 
-# name = input("Enter the username you want to reach: ")
-
-def getYTInfo(name):
+    ch_response = ch_request.execute()
     userDict = {}
+    try:
+        userDict["totalSubs"] = ch_response['items'][0]['statistics']['subscriberCount']
+        userDict["totalVids"] = ch_response['items'][0]['statistics']['videoCount']
+        userDict["totalViews"] = ch_response['items'][0]['statistics']['viewCount']
+        json_object = json.dumps(userDict, indent = 4) 
+        return json_object
+    except:
+        return "channel not found"
 
-    URL = f"https://youtube.com/c/{name}"
-
-    driver.get(URL)
-
-    time.sleep(4)
-
-
-
-    # time.sleep(5)
-    driver.quit()
-    print("hello world")
-
-    # Serialization 
-    json_object = json.dumps(userDict, indent = 4) 
-    return json_object
+print(getChInfo("UCJSzwLMy_0yDvVVtMxWzRcg"))

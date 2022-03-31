@@ -2,7 +2,7 @@ from aiohttp import request
 from flask import Flask
 from flask import request
 from InstaApp import getInfo
-from YouTubeApp import getYTInfo
+from YouTubeApp import getChInfo
 
 app = Flask(__name__)
 
@@ -20,10 +20,10 @@ def sendData():
 @app.route('/getYTInfo', methods=['GET'])
 def sendYTData():
     args = request.args
-    cname = args.get("cname")
-    data = getYTInfo(cname)
+    cname = args.get("cid")
+    data = getChInfo(cname)
     return data
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
