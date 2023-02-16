@@ -7,7 +7,7 @@ DateTime==4.3
 Flask==1.1.2
 urllib3==1.26.5
 gunicorn==20.0.4
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 six==1.13.0
 pytz==2019.3
 PySocks==1.7.1
